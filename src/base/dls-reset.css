@@ -139,3 +139,20 @@ a {
   background-color: --alpha(var(--color-aeblack-900) / 50%);
   @apply fixed inset-0 z-40;
 }
+.aegov-modal{
+  &.flex{
+    display: flex;
+  }
+  &.justify-center{
+    justify-content: center;
+  }
+  &.items-center{
+    align-items: center;
+  }
+  &.justify-end {
+      justify-content: flex-end;
+  }
+  &.items-end {
+    align-items: flex-end;
+  }
+}
