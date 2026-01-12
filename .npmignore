@@ -11,3 +11,4 @@ yarn.lock
 .DS_Store
 webpack.config.js
 tsconfig.json
+!/src/theme/color.js
