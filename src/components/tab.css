@@ -1,49 +1,109 @@
 .aegov-tab {
+
+  /* This is the default underline style */
   &:not(.tab-pills) {
-    @apply border-aeblack-100 border-b-2;
-    
+    border-bottom-color: var(--color-aeblack-100);
+    @apply border-b-2;
   }
-}
-.tab-items {
-  @apply -mb-px flex text-center;
-}
-.tab-link {
-  @apply text-aeblack-700 hover:text-aeblack-950 hover:border-primary-500 inline-flex items-center gap-3 rounded-t-lg rounded-b-none no-underline border-b-[0.188rem] border-transparent py-6 text-base font-medium;
-  @apply focus-visible:ring-primary-support-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0;
-  & svg {
-    @apply h-6 w-6 fill-current;
-  }
-  & img {
-    @apply max-h-6 w-6;
-  }
-}
-.tab-active {
-  @apply text-primary-600 border-b-primary-500 pointer-events-none;
-}
-.tab-content {
-  @apply rounded-lg p-4;
-}
 
-/* tab sm */
-.tab-sm {
-  & .tab-link {
-    @apply py-4 text-sm;
+  .tab-items {
+    @apply -mb-px flex text-center;
+  }
+
+  .tab-link {
+    /* --- 1. Default (Underline Style) Color Variables --- */
+    --tab-link-fg: var(--color-aeblack-700);
+    --tab-link-fg-hover: var(--color-aeblack-950);
+    --tab-link-border-hover: var(--color-primary-500);
+    --tab-link-active-fg: var(--color-primary-600);
+    --tab-link-active-border: var(--color-primary-500);
+    --tab-focus-ring: var(--color-primary-support-600);
+    --tab-link-bg: transparent;
+    /* No background by default */
+    --tab-link-bg-hover: transparent;
+    --tab-link-border: transparent;
+
+    /* --- 2. CSS Properties using the variables --- */
+    color: var(--tab-link-fg);
+    border-color: var(--tab-link-border);
+    background-color: var(--tab-link-bg);
+
+    /* --- 3. Structural Styles --- */
+    @apply inline-flex items-center gap-3 rounded-t-lg rounded-b-none no-underline border-b-[0.188rem] py-6 text-base font-medium;
+    &:focus-visible {
+          outline-style: solid;
+          outline-width: 2px;
+          outline-offset: 2px;
+          outline-color: var(--tab-focus-ring);
+      }
+    &:hover {
+      color: var(--tab-link-fg-hover);
+      border-color: var(--tab-link-border-hover);
+      background-color: var(--tab-link-bg-hover);
+    }
+
     & svg {
-      @apply h-5 w-5;
+      @apply h-6 w-6 fill-current;
     }
+
     & img {
-      @apply max-h-5 w-5;
+      @apply max-h-6 w-6;
+    }
+  }
+
+  .tab-active {
+    color: var(--tab-link-active-fg);
+    border-bottom-color: var(--tab-link-active-border);
+    @apply pointer-events-none;
+  }
+
+
+
+  /*
+        ==================================================================
+        VARIANTS
+        ==================================================================
+      */
+  /* --- Tab SM Size --- */
+  &.tab-sm {
+    & .tab-link {
+      @apply py-4 text-sm;
+
+      & svg {
+        @apply h-5 w-5;
+      }
+
+      & img {
+        @apply max-h-5 w-5;
+      }
+    }
+  }
+
+  /* --- Tab Pills Style --- */
+  &.tab-pills {
+    & .tab-link {
+      /* Override the color variables for the "pills" variant */
+      --tab-link-fg: var(--color-aeblack-800);
+      --tab-link-bg-hover: var(--color-aeblack-50);
+      --tab-link-active-fg: var(--color-primary-900);
+      --tab-link-active-bg: var(--color-primary-100);
+
+      /* Reset hover border from the default style */
+      --tab-link-border-hover: transparent;
+
+      /* Update structural styles */
+      @apply rounded-lg py-0;
+      border-width: 2px;
+    }
+
+    & .tab-active {
+      background-color: var(--tab-link-active-bg);
+      /* Reset active border from the default style */
+      border-bottom-color: transparent;
     }
   }
 }
 
-/* tab as button style */
-.tab-pills {
-  & .tab-link {
-    @apply text-aeblack-800 rounded-lg border-2 border-transparent bg-transparent py-0 text-base font-medium;
-    @apply hover:bg-aeblack-50;
-  }
-  .tab-active {
-    @apply text-primary-900 bg-primary-100;
-  }
+.tab-content {
+  @apply rounded-lg p-4 focus:outline-hidden focus:ring-2 focus:ring-offset-0 focus:ring-[var(--color-primary-support-600)];
 }

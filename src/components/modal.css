@@ -1,50 +1,108 @@
+/*
+  ==================================================================
+  MODAL COMPONENTS
+  ==================================================================
+*/
 .aegov-modal {
   @apply fixed left-0 right-0 top-0 h-[calc(100%-1rem)] max-h-full w-full overflow-y-auto overflow-x-hidden p-4 md:inset-0;
-  &.modal-serious{
-    & .aegov-btn{
-      @apply bg-aered-600 text-aered-50 hover:bg-aered-500 hover:text-aered-50 hover:shadow-aered-50 focus-visible:ring-aered-support-300;
+
+
+  .lang-header {
+    @apply mb-6 flex items-center justify-center gap-6 md:mb-8 md:gap-8 xl:mb-10 xl:gap-10 2xl:mb-12;
+  }
+
+  .lang-primary {
+    color: var(--color-aeblack-800);
+    @apply text-xl font-bold no-underline md:text-2xl xl:text-3xl;
+
+    &.active,
+    &:hover {
+      color: var(--color-primary-500);
+    }
+  }
+
+  .lang-primary-divider {
+    background-color: var(--color-aeblack-300);
+    @apply inline-block h-4 w-px xl:h-6;
+  }
+
+  .lang-other-title {
+    color: var(--color-aeblack-300);
+    border-color: var(--color-aeblack-100);
+    @apply !mb-0 border-b pb-6 text-center text-sm font-normal;
+  }
+
+  .lang-other-link {
+    color: var(--color-aeblack-700);
+    @apply block p-4 text-center text-base font-normal no-underline;
+
+    &.active,
+    &:hover {
+      color: var(--color-primary-500);
+    }
+
+  }
+
+  .lang-bottom-text {
+    color: var(--color-aeblack-300);
+    @apply !mb-0 text-center text-xs font-normal;
+  }
+
+  &.modal-serious .aegov-btn {
+    --btn-bg: var(--color-aered-600);
+    --btn-fg: var(--color-aered-50);
+    --btn-bg-hover: var(--color-aered-500);
+    --btn-focus-ring: var(--color-aered-support-300);
 
     &.btn-soft {
-      @apply bg-aered-50 hover:bg-aered-100 text-aered-600 hover:text-aered-600;
+      --btn-bg: var(--color-aered-50);
+      --btn-fg: var(--color-aered-600);
+      --btn-bg-hover: var(--color-aered-100);
     }
 
     &.btn-link {
-      @apply text-aered-600 hover:bg-aered-50 focus-visible:ring-aered-support-400 focus-visible:border-aered-support-400 bg-transparent hover:shadow-none focus-visible:ring-1 focus-visible:ring-offset-0;
+      --btn-bg: transparent;
+      --btn-fg: var(--color-aered-600);
+      --btn-bg-hover: var(--color-aered-50);
+      --btn-focus-ring: var(--color-aered-support-400);
     }
 
     &.btn-outline {
-      @apply text-aered-600 hover:bg-aered-100 border-aered-600 focus-visible:border-aered-support-300;
-    }
+      --btn-bg: transparent;
+      --btn-fg: var(--color-aered-600);
+      --btn-bg-hover: var(--color-aered-100);
+      --btn-border-color: var(--color-aered-600);
     }
   }
+
+  .aegov-modal-wrapper {
+    background-color: var(--color-whitely-50);
+    /* The shadow-aeblack-900/10 utility translates to this rgba value */
+    box-shadow: 0 10px 15px -3px rgba(27, 29, 33, 0.1), 0 4px 6px -4px rgba(27, 29, 33, 0.1);
+    @apply relative max-h-full rounded-lg;
+  }
 }
-.aegov-modal-wrapper {
-  @apply bg-whitely-50 shadow-aeblack-900/10 relative max-h-full rounded-lg shadow-xl;
-}
-.aegov-modal-backdrop, .aegov-backdrop {
-  @apply bg-aeblack-900 fixed inset-0 z-40 bg-opacity-50 dark:bg-opacity-80;
-}
+
 .aegov-modal-close {
-  @apply text-aeblack-400 hover:bg-aeblack-50 hover:text-aeblack-600 focus-within:ring-primary-400 absolute ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm focus-within:ring-2 focus:outline-none;
-}
-.lang-header {
-  @apply mb-6 flex items-center justify-center gap-6 md:mb-8 md:gap-8 xl:mb-10 xl:gap-10 2xl:mb-12;
-}
-.lang-primary {
-  @apply text-aeblack-800 text-xl font-bold no-underline md:text-2xl xl:text-3xl;
-  &.active{
-    @apply text-primary-500;
+  color: var(--color-aeblack-400);
+ 
+  @apply absolute ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm;
+
+  &:focus-visible {
+      outline-style: solid;
+      outline-width: 2px;
+      outline-offset: 2px;
+      outline-color: var(--color-primary-support-600);
+  }
+
+  &:hover {
+    background-color: var(--color-aeblack-50);
+    color: var(--color-aeblack-600);
   }
 }
-.lang-primary-divider {
-  @apply bg-aeblack-300 inline-block h-4 w-px xl:h-6;
-}
-.lang-other-title {
-  @apply text-aeblack-300 border-aeblack-100 !mb-0 border-b pb-6 text-center text-sm font-normal;
-}
-.lang-other-link {
-  @apply text-aeblack-700 block p-4 text-center text-base font-normal no-underline;
-}
-.lang-bottom-text {
-  @apply text-aeblack-300 !mb-0 text-center text-xs font-normal;
+
+.aegov-modal-backdrop,
+.aegov-backdrop {
+  background-color: --alpha(var(--color-aeblack-900) / 50%);
+  @apply fixed inset-0 z-40;
 }

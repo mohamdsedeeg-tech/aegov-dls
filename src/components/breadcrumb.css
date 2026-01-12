@@ -1,39 +1,62 @@
 nav.aegov-breadcrumb {
-  & > ol,
+
+  &>ol,
   span {
-    @apply text-primary-600 flex flex-wrap items-center;
-    & > li,
+    color: var(--color-primary-600);
+    @apply flex flex-wrap items-center;
+
+    &>li,
     span {
       @apply relative flex items-center align-middle text-sm last:font-semibold;
     }
-    & [aria-current="page"] {
-      @apply text-aeblack-800 relative inline-block max-w-[160px] truncate px-0.5 font-semibold no-underline;
+
+    &>li svg {
+      @apply rtl:-scale-x-100;
     }
+
+    & [aria-current="page"] {
+      color: var(--color-aeblack-800);
+      @apply relative inline-block max-w-[160px] truncate px-0.5 font-semibold no-underline;
+    }
+
     & a {
-      @apply text-primary-600 hover:text-primary-800 relative inline-block max-w-[140px] truncate px-1 py-2 align-middle font-medium hover:decoration-2 underline-offset-2;
-      & svg {
-        @apply me-2 inline-block h-5 w-5 -mt-0.5;
+      color: var(--color-primary-600);
+      @apply relative inline-block max-w-[140px] truncate px-1 py-2 align-middle font-medium hover:decoration-2 underline-offset-2;
+
+      &:hover {
+        color: var(--color-primary-600);
       }
+
+      & svg {
+        @apply me-2 -mt-0.5 inline-block h-5 w-5;
+      }
+
       & span {
         @apply font-medium;
+
         &:hover {
-          @apply text-primary-600;
+          color: var(--color-primary-600);
         }
       }
     }
   }
+
   &.with-seperator {
-    & > ol,
+
+    &>ol,
     span {
-      @apply space-x-5 rtl:space-x-reverse;
-      & > li,
+      @apply space-x-5;
+
+      &>li,
       span {
-        @apply after:absolute after:-end-3 after:top-2 after:h-full after:w-auto;
+        @apply after:absolute after:-end-3 after:top-2 after:h-full after:w-auto rtl:after:-scale-x-100;
         @apply last:after:hidden;
+
         &:after {
           content: "/";
         }
       }
+
     }
   }
 }

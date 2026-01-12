@@ -1,0 +1,141 @@
+html {
+  -webkit-tap-highlight-color: transparent;
+  @apply scroll-smooth md:scroll-auto;
+}
+
+body {
+  /* Color properties are now variables */
+  color: var(--color-aeblack-800);
+  
+  /* Font family uses CSS variable that automatically switches for RTL */
+  font-family: var(--font-body);
+
+  /* Non-color styles remain in @apply */
+  @apply m-0 p-0 text-base antialiased;
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* RTL body font is automatically handled by --font-body CSS variable override in root.css */
+body[dir="rtl"] {
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+/* Heading font stacks */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-heading;
+}
+
+/* RTL heading font is automatically handled by --font-heading CSS variable override in root.css */
+
+h1 {
+  @apply text-h1 font-extrabold;
+
+}
+
+h2 {
+  @apply text-h2 font-extrabold;
+
+}
+
+h3 {
+  @apply text-h3 font-extrabold;
+
+}
+
+h4 {
+  @apply text-h4 font-bold;
+
+}
+
+h5 {
+  @apply text-h5 font-bold;
+
+}
+
+h6 {
+  @apply text-h6 font-semibold;
+}
+
+button {
+  @apply inline-flex flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center text-center no-underline;
+}
+
+p {
+  @apply mb-8 text-base;
+
+  &.text-sm {
+    @apply mb-7;
+  }
+
+  &.text-xs {
+    @apply mb-6;
+  }
+}
+
+a {
+  /* Color properties are now variables */
+  color: var(--color-primary-600);
+  --tw-ring-color: var(--color-primary-support-600);
+  /* Controls the focus ring color */
+  transition-property: color, text-decoration;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+  transition-duration: 0.3s;
+  /* Non-color styles remain in @apply */
+  @apply relative inline-block rounded underline underline-offset-1;
+  @apply hover:decoration-2;
+
+  &:focus-visible {
+    outline-style: solid;
+    outline-width: 2px;
+    outline-offset: 0px;
+    outline-color: var(--color-primary-support-600);
+  }
+  &:hover {
+    color: var(--color-primary-500);
+  }
+}
+
+/* fix slick slider issue in RTL  */
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  direction: ltr;
+}
+
+[dir="rtl"] {
+  .slick-slider {
+    .slick-slide {
+      direction: rtl;
+    }
+  }
+}
+
+.aegov-modal-close {
+  color: var(--color-aeblack-400);
+
+  @apply absolute ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm ;
+  &:focus-visible {
+      outline-style: solid;
+      outline-width: 2px;
+      outline-offset: 2px;
+      outline-color: var(--color-primary-support-600);
+  }
+  &:hover {
+    background-color: var(--color-aeblack-50);
+    color: var(--color-aeblack-600);
+  }
+}
+
+.aegov-modal-backdrop,
+.aegov-backdrop {
+  background-color: --alpha(var(--color-aeblack-900) / 50%);
+  @apply fixed inset-0 z-40;
+}

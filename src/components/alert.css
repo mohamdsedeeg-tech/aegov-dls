@@ -1,39 +1,98 @@
 .aegov-alert {
+  /*
+        ==================================================================
+        1. CORE STRUCTURAL STYLES (Fixed)
+        ==================================================================
+      */
   @apply relative flex items-start gap-4 rounded px-6 py-4;
 
-  & > .alert-icon {
-    & > svg {
+  /*
+        ==================================================================
+        2. DYNAMIC COLOR PROPERTIES (Themeable)
+        ==================================================================
+      */
+  background-color: var(--alert-bg);
+  color: var(--alert-fg);
+  --tw-ring-color: var(--alert-focus-ring);
+  /* For the dismiss button */
+
+  /*
+        ==================================================================
+        3. DEFAULT COLOR SCHEME (uses secondary palette as a neutral default)
+        ==================================================================
+      */
+  --alert-bg: var(--color-secondary-50);
+  --alert-fg: var(--color-secondary-700);
+  --alert-link-fg: var(--color-secondary-800);
+  --alert-link-hover-fg: var(--color-secondary-900);
+  --alert-focus-ring: var(--color-secondary-700);
+
+  /*
+        ==================================================================
+        CHILD ELEMENT STYLES
+        ==================================================================
+      */
+  &>.alert-icon {
+    color: var(--alert-fg);
+
+    &>svg {
       @apply h-7 w-7 flex-shrink-0 fill-current;
     }
-    & > img {
+
+    &>img {
       @apply h-7 w-7 flex-shrink-0;
     }
   }
 
-  & > .alert-content {
+  &>.alert-content {
     @apply text-base self-center;
+
     & p {
       @apply last:mb-0;
     }
+
     & .alert-title {
+      color: var(--alert-fg);
       @apply mb-5 font-semibold;
     }
+
     & .alert-footer {
-      @apply mt-6 flex items-center justify-start space-x-6 rtl:space-x-reverse;
+      @apply mt-6 flex items-center justify-start space-x-6;
+
       & a {
-        @apply font-bold no-underline hover:underline hover:decoration-2 hover:underline-offset-2;
+        color: var(--alert-link-fg);
+        @apply font-bold hover:underline hover:decoration-2 hover:underline-offset-2;
+
+        &:hover {
+          color: var(--alert-link-hover-fg);
+        }
       }
     }
+
+    a {
+      color: var(--alert-link-fg);
+
+      &:hover {
+        color: var(--alert-link-hover-fg);
+        text-decoration: underline;
+      }
+    }
+
     &.alert-with-link {
       @apply flex-1 md:flex md:justify-between;
-      /* p {
-        @apply mb-0;
-      } */
+
       .alert-link {
         @apply mb-0 mt-3 text-sm md:ml-6 md:mt-0 flex-shrink-0;
+
         & a {
+          color: var(--alert-link-fg);
           @apply whitespace-nowrap font-medium no-underline inline-flex items-center gap-2;
-          & svg{
+
+          &:hover {
+            color: var(--alert-link-hover-fg);
+          }
+
+          & svg {
             @apply h-5 w-5;
           }
         }
@@ -41,12 +100,20 @@
     }
   }
 
-  & > .alert-dismiss {
+  &>.alert-dismiss {
     @apply absolute end-2 top-2.5;
-    & > button {
-      @apply hover:opacity-60 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-offset-0;
-      @apply rounded p-2;
-      & > svg {
+
+    &>button {
+      @apply rounded p-2 hover:opacity-60;
+
+      &:focus-visible {
+          outline-style: solid;
+          outline-width: 2px;
+          outline-offset: 2px;
+          outline-color: var(--alert-focus-ring);
+      }
+
+      &>svg {
         @apply h-5 w-5;
       }
     }
@@ -56,413 +123,178 @@
     @apply pe-10 ps-6;
   }
 
-  
-  /* Define Error */
-  &.alert-error {
-    @apply bg-aered-50 text-aered-700;
-    & .alert-icon {
-      @apply text-aered-700;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-aered-700;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-aered-700 hover:text-aered-600;
-        }
-      }
-      & a {
-        @apply text-aered-700 hover:text-aered-600 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-aered-700;
-      }
-    }
-  }
- /* Define Error soft*/
-  &.alert-error.alert-soft {
-    @apply bg-aered-50 text-aered-700;
-    & .alert-icon {
-      @apply text-aered-700;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-aered-700;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-aered-700 hover:text-aered-600;
-        }
-      }
-      & a {
-        @apply text-aered-700 hover:text-aered-600 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-aered-700;
-      }
-    }
-  }
-  /* Define Error Solid  */
-  &.alert-error.alert-solid {
-    @apply bg-aered-600 text-whitely-50;
-    & .alert-icon {
-      @apply text-whitely-50;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-whitely-50;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-whitely-50 hover:text-whitely-100;
-        }
-      }
-      & a {
-        @apply text-whitely-50 hover:text-whitely-100 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-whitely-50;
-      }
-    }
-  }
-  
-
-  /* Define Success */
+  /*
+        ==================================================================
+        4. COLOR & STYLE VARIANTS
+        ==================================================================
+      */
   &.alert-success {
-    @apply bg-aegreen-50 text-aegreen-700;
-    & .alert-icon {
-      @apply text-aegreen-700;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-aegreen-700;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-aegreen-700 hover:text-aegreen-600;
-        }
-      }
-      & a {
-        @apply text-aegreen-700 hover:text-aegreen-600 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-aegreen-700;
-      }
-    }
-  }
-   /* Define Success Soft*/
-  &.alert-success.alert-soft {
-    @apply bg-aegreen-50 text-aegreen-700;
-    & .alert-icon {
-      @apply text-aegreen-700;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-aegreen-700;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-aegreen-700 hover:text-aegreen-600;
-        }
-      }
-      & a {
-        @apply text-aegreen-700 hover:text-aegreen-600 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-aegreen-700;
-      }
-    }
-  }
-  /* Define Success Solid*/
-  &.alert-success.alert-solid {
-    @apply bg-aegreen-600 text-whitely-50;
-    & .alert-icon {
-      @apply text-whitely-50;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-whitely-50;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-whitely-50 hover:text-whitely-100;
-        }
-      }
-      & a {
-        @apply text-whitely-50 hover:text-whitely-100 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-whitely-50;
-      }
+    --alert-bg: var(--color-aegreen-50);
+    --alert-fg: var(--color-aegreen-700);
+    --alert-link-fg: var(--color-aegreen-700);
+    --alert-link-hover-fg: var(--color-aegreen-600);
+    --alert-focus-ring: var(--color-aegreen-700);
+
+    &.alert-solid {
+      --alert-bg: var(--color-aegreen-600);
+      --alert-fg: var(--color-whitely-50);
+      --alert-link-fg: var(--color-whitely-50);
+      --alert-link-hover-fg: var(--color-whitely-100);
+      --alert-focus-ring: var(--color-whitely-50);
     }
   }
 
-  /* Define Info */
   &.alert-info {
-    @apply bg-techblue-50 text-techblue-700;
-    & .alert-icon {
-      @apply text-techblue-700;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-techblue-700;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-techblue-700 hover:text-techblue-600;
-        }
-      }
-      & a {
-        @apply text-techblue-700 hover:text-techblue-600 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-techblue-700;
-      }
-    }
-  }
-  /* Define Info Soft*/
-  &.alert-info.alert-soft {
-    @apply bg-techblue-50 text-techblue-700;
-    & .alert-icon {
-      @apply text-techblue-700;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-techblue-700;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-techblue-700 hover:text-techblue-600;
-        }
-      }
-      & a {
-        @apply text-techblue-700 hover:text-techblue-600 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-techblue-700;
-      }
-    }
-  }
-  /* Define Info Solid*/
-  &.alert-info.alert-solid {
-    @apply bg-techblue-600 text-whitely-50;
-    & .alert-icon {
-      @apply text-whitely-50;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-whitely-50;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-whitely-50 hover:text-whitely-100;
-        }
-      }
-      & a {
-        @apply text-whitely-50 hover:text-whitely-100 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-whitely-50;
-      }
+    --alert-bg: var(--color-techblue-50);
+    --alert-fg: var(--color-techblue-700);
+    --alert-link-fg: var(--color-techblue-700);
+    --alert-link-hover-fg: var(--color-techblue-600);
+    --alert-focus-ring: var(--color-techblue-700);
+
+    &.alert-solid {
+      --alert-bg: var(--color-techblue-600);
+      --alert-fg: var(--color-whitely-50);
+      --alert-link-fg: var(--color-whitely-50);
+      --alert-link-hover-fg: var(--color-whitely-100);
+      --alert-focus-ring: var(--color-whitely-50);
     }
   }
 
-  /* Define Warning */
   &.alert-warning {
-    @apply bg-camel-50 text-camel-700;
-    & .alert-icon {
-      @apply text-camel-700;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-camel-700;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-camel-700 hover:text-camel-600;
-        }
-      }
-      & a {
-        @apply text-camel-700 hover:text-camel-600 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-camel-700;
-      }
-    }
-  }
-  /* Define Warning Soft*/
-  &.alert-warning.alert-soft {
-    @apply bg-camel-50 text-camel-700;
-    & .alert-icon {
-      @apply text-camel-700;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-camel-700;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-camel-700 hover:text-camel-600;
-        }
-      }
-      & a {
-        @apply text-camel-700 hover:text-camel-600 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-camel-700;
-      }
-    }
-  }
-  /* Define Warning Solid*/
-  &.alert-warning.alert-solid {
-    @apply bg-camel-600 text-whitely-50;
-    & .alert-icon {
-      @apply text-whitely-50;
-    }
-    & > .alert-content {
-      & .alert-title {
-        @apply text-whitely-50;
-      }
-      & .alert-footer {
-        & a {
-          @apply text-whitely-50 hover:text-whitely-100;
-        }
-      }
-      & a {
-        @apply text-whitely-50 hover:text-whitely-100 underline;
-      }
-    }
-    & > .alert-dismiss {
-      & > button {
-        @apply focus-visible:ring-whitely-50;
-      }
+    --alert-bg: var(--color-camel-50);
+    --alert-fg: var(--color-camel-700);
+    --alert-link-fg: var(--color-camel-700);
+    --alert-link-hover-fg: var(--color-camel-600);
+    --alert-focus-ring: var(--color-camel-700);
+
+    &.alert-solid {
+      --alert-bg: var(--color-camel-600);
+      --alert-fg: var(--color-whitely-50);
+      --alert-link-fg: var(--color-whitely-50);
+      --alert-link-hover-fg: var(--color-whitely-100);
+      --alert-focus-ring: var(--color-whitely-50);
     }
   }
 
-  /* Size definations */
+  &.alert-error {
+    --alert-bg: var(--color-aered-50);
+    --alert-fg: var(--color-aered-700);
+    --alert-link-fg: var(--color-aered-700);
+    --alert-link-hover-fg: var(--color-aered-600);
+    --alert-focus-ring: var(--color-aered-700);
 
+    &.alert-solid {
+      --alert-bg: var(--color-aered-600);
+      --alert-fg: var(--color-whitely-50);
+      --alert-link-fg: var(--color-whitely-50);
+      --alert-link-hover-fg: var(--color-whitely-100);
+      --alert-focus-ring: var(--color-whitely-50);
+    }
+  }
+
+  /*
+        ==================================================================
+        5. SIZE VARIANTS
+        ==================================================================
+      */
   &.alert-lg {
-    & > .alert-icon {
-      & > svg,
-      & > img {
+    &>.alert-icon {
+
+      &>svg,
+      &>img {
         @apply h-7 w-7;
       }
     }
-    & .alert-link {
-      & svg,
-      & img {
-        @apply h-6 w-6;
-      }
-    }
-    & > .alert-content {
+
+    &>.alert-content {
       @apply text-lg;
+
       & p {
         @apply text-lg;
       }
-      &.alert-with-link {
-        .alert-link {
-          @apply text-base;
-          & a {
-            & svg,
-            & img {
-              @apply h-6 w-6;
-            }
+
+      &.alert-with-link .alert-link {
+        @apply text-base;
+
+        & a {
+
+          & svg,
+          & img {
+            @apply h-6 w-6;
           }
         }
       }
     }
-    & > .alert-dismiss {
+
+    &>.alert-dismiss {
       @apply top-3;
     }
   }
+
   &.alert-base {
-    & > .alert-icon {
-      & > svg,
-      & > img {
+    &>.alert-icon {
+
+      &>svg,
+      &>img {
         @apply h-7 w-7;
       }
     }
-    & .alert-link {
-      & svg,
-      & img {
-        @apply h-5 w-5;
-      }
-    }
-    & > .alert-content {
+
+    &>.alert-content {
       @apply text-base;
+
       & p {
         @apply text-base;
       }
-      &.alert-with-link {
-        .alert-link {
-          @apply text-sm;
-          & a {
-            & svg,
-            & img {
-              @apply h-5 w-5;
-            }
+
+      &.alert-with-link .alert-link {
+        @apply text-sm;
+
+        & a {
+
+          & svg,
+          & img {
+            @apply h-5 w-5;
           }
         }
       }
     }
-    & > .alert-dismiss {
+
+    &>.alert-dismiss {
       @apply top-2.5;
     }
   }
+
   &.alert-sm {
-    & > .alert-icon {
-      & > svg,
-      & > img {
+    &>.alert-icon {
+
+      &>svg,
+      &>img {
         @apply h-5 w-5;
       }
     }
-    & .alert-link {
-      & svg,
-      & img {
-        @apply h-4 w-4;
-      }
-    }
-    & > .alert-content {
+
+    &>.alert-content {
       @apply text-sm;
+
       & p {
         @apply text-sm;
       }
-      &.alert-with-link {
-        .alert-link {
-          @apply text-xs;
-          & a {
-            & svg,
-            & img {
-              @apply h-4 w-4;
-            }
+
+      &.alert-with-link .alert-link {
+        @apply text-xs;
+
+        & a {
+
+          & svg,
+          & img {
+            @apply h-4 w-4;
           }
         }
       }
     }
-    & > .alert-dismiss {
+
+    &>.alert-dismiss {
       @apply top-2;
     }
   }

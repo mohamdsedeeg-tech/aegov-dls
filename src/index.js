@@ -1,152 +1,119 @@
-import pc from "picocolors"
+const plugin = require('tailwindcss/plugin');
+const fs = require('fs');
+const path = require('path');
+const pc = require('picocolors');
 
-const postcssJs = require("postcss-js")
+const dsInfo = require('../package.json');
+const defaultColors = require('./theme/colors.js');
 
-const aegovInfo = require("../package.json");
-const aegovColors = require("./color/index");
+// --- Load pre-compiled styles ---
+const compiledStyles = (() => {
+  const filePath = path.join(__dirname, '../dist/plugin.js');
+  try {
+    return fs.existsSync(filePath) ? require(filePath) : {};
+  } catch (error) {
+    console.error('Error loading compiled styles:', error);
+    return {};
+  }
+})();
 
-const aegovBase = require("../dist/base");
-const aegovComponents = require("../dist/components");
-const aegovBlocks = require("../dist/blocks");
-const aegovUtil = require("../dist/utilities");
+function extractLayer(styles, layerName) {
+  const key = `@layer ${layerName}`;
+  return styles[key] || {};
+}
 
+const baseStyles = extractLayer(compiledStyles, 'aegov-base');
+const componentStyles = extractLayer(compiledStyles, 'aegov-components');
+const utilityStyles = extractLayer(compiledStyles, 'aegov-utilities');
 
-const mainFunction = ({ addBase, addComponents, addUtilities, config, postcss }) => {
-	let aegovIncludedItems = [];
-	console.group();
-	console.log("\n" + pc.bold(pc.magenta("AE Gov Design Language System,")));
-	console.log(pc.bold("version:" + aegovInfo.version));
-	console.log(pc.gray("Powered by " + aegovInfo.author) + "\n");
-	console.group();
+// --- Color generation functions ---
+function generateColorVariables(colors) {
+  const variables = {};
+  for (const colorName in colors) {
+    const shades = colors[colorName];
+    if (typeof shades === 'object' && shades !== null) {
+      for (const shade in shades) {
+        variables[`--color-${colorName}${shade === 'DEFAULT' ? '' : `-${shade}`}`] = shades[shade];
+      }
+    } else {
+      variables[`--color-${colorName}`] = shades;
+    }
+  }
+  return variables;
+}
 
-	// Include the base style
-	addBase(aegovBase);
-	aegovIncludedItems.push("aegov-Base");
+function generateColorTheme(colors) {
+  const theme = {};
+  for (const colorName in colors) {
+    const shades = colors[colorName];
+    if (typeof shades === 'object' && shades !== null) {
+      theme[colorName] = {};
+      for (const shade in shades) {
+        theme[colorName][shade] = `var(--color-${colorName}${shade === 'DEFAULT' ? '' : `-${shade}`})`;
+      }
+    } else {
+      theme[colorName] = `var(--color-${colorName})`;
+    }
+  }
+  return theme;
+}
 
-	// Include the components style
-	addComponents(aegovComponents);
-	aegovIncludedItems.push("aegov-Components");
+// --- Plugin definition ---
+const mainFunction = ({ addBase, addComponents, addUtilities }) => {
+  const includedItems = [];
+  console.group();
+  console.log("\n" + pc.bold(pc.magenta("@aegov/design-system,")));
+  console.log(pc.bold("version: " + dsInfo.version));
+  console.log(pc.gray("Powered by " + dsInfo.author) + "\n");
+  console.group();
 
-	// Include the blocks style
-	addComponents(aegovBlocks);
-	aegovIncludedItems.push("aegov-Blocks");
+  // Add base styles and color variables
+  addBase({ ':where(:root)': generateColorVariables(defaultColors), ...baseStyles });
+  includedItems.push("Base");
 
-	// Include the utilities
-	addComponents(aegovUtil, { variants: ["responsive"] });
-	aegovIncludedItems.push("aegov-Util");
+  // Add component styles
+  if (Object.keys(componentStyles).length > 0) {
+    addComponents(componentStyles);
+    includedItems.push("Components");
+  }
 
-	console.log(pc.green("✔︎ Including: ") + aegovIncludedItems.join(", "));
-	console.groupEnd();
-	console.groupEnd();
+  // Add utility styles
+  if (Object.keys(utilityStyles).length > 0) {
+    addUtilities(utilityStyles);
+    includedItems.push("Utilities");
+  }
+
+  // console.log(pc.green("✔︎ Including: ") + includedItems.join(", "));
+  console.groupEnd();
+  console.groupEnd();
 };
 
-module.exports = require("tailwindcss/plugin")(mainFunction, {
-	safelist: [
-		'aegov-drawer-backdrop',
-		'aegov-modal-backdrop',
-		'opacity-100',
-		'opacity-0',
-		'aegov-backdrop',
-		'visible',
-		{
-			pattern: /(?:^|\s)(justify|items)-(start|center|end)(?:\s|$)/,
-		},
-	  ],
-	future: {
-		hoverOnlyWhenSupported: true,
-	},
-	theme: { 
-		screens:{
-			'sm':'640px',
-			'md':'768px',
-			'lg':'1024px',
-			'xl':'1280px',
-			'2xl':'1536px'
-		},
-		container: {
-			padding: {
-				DEFAULT: '0.625rem',
-				md:'0.875rem',
-				lg:'1.375rem',
-				xl:'1.25rem'
-			},
-			center: true
-		},
-		fontFamily: {
-			'roboto': ['\'Roboto\'','ui-sans-serif','system-ui','-apple-system','BlinkMacSystemFont','\'Segoe UI\'','\'Helvetica Neue\'','sans-serif'],
-			'inter':['\'Inter\'','\'Helvetica Neue\'','ui-sans-serif','system-ui','sans-serif'],
-			'notokufi': ['\'Noto Kufi Arabic\'','ui-sans-serif','\'Helvetica Neue\'','sans-serif'],
-			'alexandria': ['\'Alexandria\'','\'Helvetica Neue\'','ui-sans-serif','system-ui','sans-serif']
-		},
-		fontSize: {
-			'xs':['0.75rem',{
-				lineHeight: '1rem'
-			}],
-			'sm':['0.875rem',{
-				lineHeight: '1.25rem'
-			}],
-			'base':['1rem', {
-				lineHeight: '1.5rem'
-			}],
-			'lg':['1.125rem', {
-				lineHeight: '1.5rem'
-			}],
-			'xl':['1.25rem',{
-				lineHeight: '1.75rem'
-			}],
-			'2xl':['1.5rem',{
-				lineHeight: '2rem'
-			}],
-			'3xl':['1.875rem',{
-				lineHeight: '2.25rem'
-			}],
-			'h6':['1.25rem',{
-				lineHeight: '1.75rem'
-			}],
-			'h5':['1.625rem',{
-				lineHeight: '2.125rem'
-			}],
-			'h4':['2rem', {
-				lineHeight: '2.375rem'
-			}],
-			'h3':['2.5rem', {
-				lineHeight: '1.2'
-			}],
-			'h2':['3rem', {
-				lineHeight: '1.2'
-			}],
-			'h1':['3.875rem', {
-				lineHeight: '1.1'
-			}],
-			'display':['4.75rem', {
-				lineHeight: '1.1'
-			}]
-		},
-		colors: {
-			...aegovColors,
-			primary:aegovColors.aegold,
-			secondary:aegovColors.aeblack,
-			"primary-support":aegovColors.camel,
-			"secondary-support":aegovColors.seablue,
-			"aered-support":aegovColors.aered,
+const pluginConfig = {
+  theme: {
+    colors: generateColorTheme(defaultColors),
+    extend: {
+      boxShadow: {
+        button: "var(--shadow-button)",
+      },
+      fontFamily: {
+        'heading': "var(--font-heading)",
+        'body': "var(--font-body)",
+        'roboto': "var(--font-roboto)",
+        'inter': "var(--font-inter)",
+        'notokufi': "var(--font-notokufi)",
+        'alexandria': "var(--font-alexandria)"
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "var(--container-padding)",
+          md: "var(--container-padding-md)",
+          lg: "var(--container-padding-lg)",
+          xl: "var(--container-padding-xl)",
+        },
+      },
+    }
+  },
+};
 
-		},
-		extend: {
-			boxShadow: {
-		    	'button': `0px 0px 0px 6px`
-		    },
-		    height: {
-		    	'4.5': '1.125rem',
-		    	'13': '3.25rem'
-		    },
-		    width : {
-		    	'4.5': '1.125rem',
-		    	'13': '3.25rem'
-		    }
-		}
-	},
-	plugins: [
-		require('@tailwindcss/forms'),
-		require('@tailwindcss/typography')
-	]
-});
+module.exports = plugin(mainFunction, pluginConfig);

@@ -1,0 +1,79 @@
+@theme {
+  /* Container Padding */
+  --container-padding: '';
+  --container-padding-md: '';
+  --container-padding-lg: '';
+  --container-padding-xl: '';
+  --container-center: '';
+
+  /* Font Families */
+  --font-heading: '';
+  --font-sans: '';
+
+  /* Specific fonts for convenience */
+  --font-roboto: '';
+  --font-inter: '';
+  --font-notokufi: '';
+  --font-alexandria: '';
+
+  /* Font Sizes & Line Heights */
+  --text-xs: '';
+  --text-xs--line-height: '';
+
+  --text-sm: '';
+  --text-sm--line-height: '';
+
+  --text-base: '';
+  --text-base--line-height: '';
+
+  --text-lg: '';
+  --text-lg--line-height: '';
+
+  --text-xl: '';
+  --text-xl-line-height: '';
+
+  --text-display: '';
+  --text-display--line-height: '';
+  --text-display-weight: '';
+
+
+  --text-h1: '';
+  --text-h1--line-height: '';
+  --text-h1-weight: '';
+  --text-h1-font-family: '';
+
+  --text-h2: '';
+  --text-h2--line-height: '';
+  --text-h2-weight: '';
+  --text-h2-font-family: '';
+
+  --text-h3: '';
+  --text-h3--line-height: '';
+  --text-h3-weight: '';
+  --text-h3-font-family: '';
+
+
+  --text-h4: '';
+  --text-h4--line-height: '';
+  --text-h4-weight: '';
+  --text-h4-font-family: '';
+
+  --text-h5: '';
+  --text-h5--line-height: '';
+  --text-h5-weight: '';
+  --text-h5-font-family: '';
+
+  --text-h6: '';
+  --text-h6--line-height: '';
+  --text-h6-weight: '';
+  --text-h6-font-family: '';
+
+
+  /* Shadows */
+  --shadow-button: '';
+
+  --tw-ring-color: '';
+
+
+
+}

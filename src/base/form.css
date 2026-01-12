@@ -1,0 +1,160 @@
+/* --- Checkbox & Radio Base Styles --- */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--form-check-accent);
+  color: var(--form-check-accent);
+  border-color: var(--form-check-border);
+  --tw-ring-color: var(--form-check-focus-ring);
+  --tw-border-style: solid;
+  @apply relative m-0 h-5 w-5 flex-shrink-0 appearance-none border focus:outline-hidden focus:ring-[var(--form-check-focus-ring)] focus:ring-offset-2 disabled:pointer-events-none disabled:checked:opacity-40 disabled:checked:border-[var(--form-check-border)];
+
+  &:disabled {
+    border-color: var(--form-check-disabled-border);
+  }
+
+  &:before {
+    content: '';
+    background-color: var(--form-check-hover-before-bg);
+    @apply absolute start-2/4 top-2/4 mix-blend-multiply h-12 w-12 -translate-x-2/4 -translate-y-2/4 scale-0 rounded-full transition-all;
+  }
+
+  &:hover:not(:disabled)::before {
+    @apply scale-100;
+  }
+
+  &:disabled:before {
+    @apply !hidden;
+  }
+}
+
+input[type="checkbox"] {
+  @apply rounded;
+}
+
+/* --- Text Input, Select, Textarea Base Styles --- */
+input[type="text"],
+input[type="email"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="search"],
+input[type="tel"],
+input[type="time"],
+input[type="week"],
+[multiple],
+textarea,
+select {
+  color: var(--form-input-text);
+  font-size: var(--text-base);
+  @apply block w-full flex-1 border-0 bg-transparent py-3 px-4 leading-6 focus:ring-0 motion-reduce:transition-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:select-none;
+
+  &::placeholder {
+    color: var(--form-input-placeholder);
+  }
+}
+
+/* --- Range Slider Base Styles --- */
+input[type="range"] {
+  --range-track-bg: color-mix(in oklab, var(--color-aeblack-200)20%, transparent);
+  --range-progress-from: var(--color-primary-300);
+  --range-progress-to: var(--color-primary-500);
+  --range-thumb-bg: var(--color-primary-800);
+  --range-thumb-bg-hover: var(--color-primary-700);
+
+  .control-secondary & {
+    --range-track-bg: color-mix(in oklab, var(--color-secondary-200)20%, transparent);
+    --range-progress-from: var(--color-secondary-300);
+    --range-progress-to: var(--color-secondary-500);
+    --range-thumb-bg: var(--color-secondary-800);
+    --range-thumb-bg-hover: var(--color-secondary-700);
+  }
+
+  .control-error & {
+    --range-track-bg: color-mix(in oklch, var(--color-aered-200)20%, transparent);
+    --range-progress-from: var(--color-aered-300);
+    --range-progress-to: var(--color-aered-500);
+    --range-thumb-bg: var(--color-aered-800);
+    --range-thumb-bg-hover: var(--color-aered-700);
+  }
+
+  background-color: var(--range-track-bg);
+  --tw-gradient-from: var(--range-progress-from);
+  --tw-gradient-to: var(--range-progress-to);
+  background-image: linear-gradient(to right, var(--range-progress-from), var(--range-progress-to));
+
+  @apply my-3 inline-block h-2 w-full appearance-none rounded bg-no-repeat align-middle text-base;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  background-color: var(--range-thumb-bg);
+  @apply cursor-[ew-resize] h-5 w-5 appearance-none rounded-full shadow-sm transition-colors;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background-color: var(--range-thumb-bg-hover);
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  @apply appearance-none border-0 bg-transparent shadow-none;
+}
+
+/* --- File Input Base Styles --- */
+input[type="file"] {
+  --file-btn-fg: var(--color-primary-700);
+  --file-btn-bg: var(--color-primary-50);
+  --file-btn-bg-hover: var(--color-primary-100);
+  --file-ring-color: var(--color-primary-300);
+  --file-focus-ring-color: var(--color-primary-support-600);
+  --file-focus-outline-color: var(--color-primary-500);
+  --file-focus-shadow-color: color-mix(in oklab, var(--color-primary-support-600)20%, transparent);
+
+  .control-secondary & {
+    --file-btn-fg: var(--color-secondary-700);
+    --file-btn-bg: var(--color-secondary-50);
+    --file-btn-bg-hover: var(--color-secondary-100);
+    --file-ring-color: var(--color-secondary-300);
+    --file-focus-ring-color: var(--color-secondary-support-300);
+    --file-focus-outline-color: var(--color-secondary-support-300);
+    --file-focus-shadow-color: color-mix(in oklab, var(--color-secondary-support-300)20%, transparent);
+  }
+
+  .control-error & {
+    --file-btn-fg: var(--color-aered-700);
+    --file-btn-bg: var(--color-aered-50);
+    --file-btn-bg-hover: var(--color-aered-100);
+    --file-ring-color: var(--color-aered-300);
+    --file-focus-ring-color: var(--color-aered-600);
+    --file-focus-outline-color: var(--color-aered-500);
+    --file-focus-shadow-color: color-mix(in oklab, var(--color-aered-600)20%, transparent);
+  }
+
+  @apply w-full !py-0 overflow-hidden border-0 outline-none motion-reduce:transition-none;
+
+  &:not(:disabled):not([readonly]) {
+    @apply cursor-pointer;
+  }
+
+  &:focus {
+    outline-color: var(--file-focus-outline-color);
+  }
+
+  &::file-selector-button {
+    color: var(--file-btn-fg);
+    background-color: var(--color-whitely-50);
+    --tw-ring-color: var(--file-ring-color);
+    @apply me-4 h-full border-0 rounded-s-lg py-3 px-4 ring-2 ring-inset;
+  }
+
+  &:hover:not(:disabled):not([readonly])::file-selector-button {
+    background-color: var(--file-btn-bg-hover);
+  }
+
+  &:focus-within::file-selector-button {
+    --tw-ring-color: var(--file-focus-ring-color);
+    box-shadow: 0 0 0 1px var(--file-focus-shadow-color);
+    @apply z-10;
+  }
+}
