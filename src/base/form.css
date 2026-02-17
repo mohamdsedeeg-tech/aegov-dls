@@ -106,16 +106,20 @@ input[type="file"] {
   --file-btn-fg: var(--color-primary-700);
   --file-btn-bg: var(--color-primary-50);
   --file-btn-bg-hover: var(--color-primary-100);
-  --file-ring-color: var(--color-primary-300);
+  --file-ring-color: var(--color-primary-400);
   --file-focus-ring-color: var(--color-primary-support-600);
   --file-focus-outline-color: var(--color-primary-500);
   --file-focus-shadow-color: color-mix(in oklab, var(--color-primary-support-600)20%, transparent);
+
+  @apply w-full py-0! overflow-hidden motion-reduce:transition-none;
+  outline: none;
+  border: 0;
 
   .control-secondary & {
     --file-btn-fg: var(--color-secondary-700);
     --file-btn-bg: var(--color-secondary-50);
     --file-btn-bg-hover: var(--color-secondary-100);
-    --file-ring-color: var(--color-secondary-300);
+    --file-ring-color: var(--color-secondary-400);
     --file-focus-ring-color: var(--color-secondary-support-300);
     --file-focus-outline-color: var(--color-secondary-support-300);
     --file-focus-shadow-color: color-mix(in oklab, var(--color-secondary-support-300)20%, transparent);
@@ -125,27 +129,29 @@ input[type="file"] {
     --file-btn-fg: var(--color-aered-700);
     --file-btn-bg: var(--color-aered-50);
     --file-btn-bg-hover: var(--color-aered-100);
-    --file-ring-color: var(--color-aered-300);
+    --file-ring-color: var(--color-aered-400);
     --file-focus-ring-color: var(--color-aered-600);
     --file-focus-outline-color: var(--color-aered-500);
     --file-focus-shadow-color: color-mix(in oklab, var(--color-aered-600)20%, transparent);
   }
 
-  @apply w-full !py-0 overflow-hidden border-0 outline-none motion-reduce:transition-none;
+  
 
   &:not(:disabled):not([readonly]) {
     @apply cursor-pointer;
   }
 
   &:focus {
-    outline-color: var(--file-focus-outline-color);
+    outline: none;
   }
 
   &::file-selector-button {
     color: var(--file-btn-fg);
     background-color: var(--color-whitely-50);
-    --tw-ring-color: var(--file-ring-color);
-    @apply me-4 h-full border-0 rounded-s-lg py-3 px-4 ring-2 ring-inset;
+      --tw-inset-ring-shadow: inset 0 0 0 2px var(--tw-inset-ring-color, currentcolor);
+    box-shadow: 0 0 #0000, var(--tw-inset-ring-shadow), 0 0 #0000, 0 0 #0000, 0 0 #0000;
+    --tw-inset-ring-color: var(--file-ring-color);
+    @apply me-4 h-full border-0 rounded-s-lg py-3 px-4;
   }
 
   &:hover:not(:disabled):not([readonly])::file-selector-button {
@@ -153,8 +159,7 @@ input[type="file"] {
   }
 
   &:focus-within::file-selector-button {
-    --tw-ring-color: var(--file-focus-ring-color);
-    box-shadow: 0 0 0 1px var(--file-focus-shadow-color);
+     --tw-inset-ring-color: var(--file-focus-ring-color);
     @apply z-10;
   }
 }
