@@ -1,244 +1,294 @@
 .aegov-card-group {
-  @apply bg-primary-300 border-primary-300 grid gap-px rounded-lg border md:rounded-xl xl:rounded-2xl;
+  /* Dynamic Colors */
+  background-color: var(--color-primary-300);
+  border-color: var(--color-primary-300);
+
+  /* Structural Styles */
+  @apply grid gap-px rounded-lg border md:rounded-xl xl:rounded-2xl;
+
   &.card-stacked {
     @apply overflow-hidden;
-    & > * {
-      @apply space-y-6 h-full p-6;
+
+    &>* {
+      @apply h-full space-y-6 p-6;
     }
   }
 }
+
 .card-element-space {
-    @apply space-y-6;
+  @apply space-y-6;
 }
 
 .aegov-card {
   @apply rounded-xl;
-  & > svg {
-    @apply text-primary-600 w-10 h-10;
+
+  &>svg {
+    color: var(--color-primary-600);
+    @apply h-10 w-10;
   }
+
   & .card-title {
     @apply text-h5 font-extrabold font-inter rtl:font-alexandria;
   }
+
   & .card-image {
-    @apply aspect-[16/9] object-cover w-full;
+    @apply aspect-[16/9] w-full object-cover;
   }
+
   &:not(.card-bordered) {
     & .card-image {
       @apply rounded-xl;
     }
   }
-  &.card-bordered{
-    @apply border-primary-300 border overflow-hidden;;
+
+  &.card-bordered {
+    border-color: var(--color-primary-300);
+    @apply border overflow-hidden;
+
     &:not(.card-news) {
-      @apply space-y-6;
+      @apply space-y-6 p-6;
     }
-    &:not(.card-news) {
-      @apply p-6;
-      & .card-image {
-        @apply rounded-lg block;
-      }
+
+    & .card-image {
+      @apply rounded-lg block;
     }
   }
+
+  /* Inside your .aegov-card styles */
+
+  /* Inside your .aegov-card styles */
+
   &.card-glow {
-    @apply transition-all duration-300 ease-in-out hover:shadow-xl hover:shadow-primary-500/30;
+    /* This is the default state of the card */
+
+    /* THIS IS THE FIX:
+      We use color-mix() to take your solid --color-primary-500 variable
+      and mix it with 80% transparent, resulting in 20% opacity.
+    */
+    /* --tw-shadow-color: color-mix(in srgb, var(--color-primary-500), transparent 30%); */
+    --tw-shadow-color: var(--color-primary-100);
+    transition-property: box-shadow;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: 0.3s;
+
+    /* On hover, we make the shadow larger */
+    &:hover {
+      box-shadow: 0 20px 25px -5px var(--tw-shadow-color, #0000001a), 0 8px 10px -6px var(--tw-shadow-color, #0000001a);
+    }
   }
+
   &.card-news {
     &:not(.card-bordered) {
       @apply space-y-6;
+
       & img {
         @apply rounded-xl hover:opacity-90;
       }
     }
+
     & .card-content {
       @apply space-y-6;
     }
+
     &.card-bordered {
       & .card-content {
         @apply p-6;
       }
     }
   }
+
   &.card-service {
-    @apply transition-all hover:bg-primary-50;
-    & .card-service-title, .card-title {
+    @apply transition-all;
+
+    &:hover {
+      background-color: var(--color-primary-50);
+    }
+
+    & .card-service-title,
+    & .card-title {
       @apply text-h5;
-      & > a {
-        @apply text-aeblack-800 hover:text-primary-800;
+
+      &>a {
+        color: var(--color-aeblack-800);
+
+        &:hover {
+          color: var(--color-primary-800);
+        }
       }
     }
-    & .card-service-title{
+
+    & .card-service-title {
       @apply font-extrabold;
     }
   }
+
   &.card-creative {
-    @apply relative rounded-xl after:absolute after:inset-0 after:w-full after:h-full after:bg-gradient-to-t after:from-primary-700 overflow-hidden;
+    @apply relative rounded-xl overflow-hidden after:absolute after:inset-0 after:h-full after:w-full after:content-[""];
+
+    &::after {
+      background-image: linear-gradient(to top, var(--color-primary-700), transparent);
+    }
+
     & img {
       @apply w-full object-cover;
     }
+
     & .card-content {
-      @apply text-primary-50 absolute inset-x-0 bottom-0 text-whitely-50 z-10 text-[2.5rem] leading-[1.15] p-7 font-inter font-extrabold rtl:font-notokufi;
+      color: var(--color-whitely-50);
+      @apply absolute inset-x-0 bottom-0 z-10 p-7 text-[2.5rem] font-inter font-extrabold leading-[1.15] rtl:font-notokufi;
     }
   }
-  /* Size variation */
-  /* Card Small */
-  &.card-sm{
+
+  /* --- Size Variations --- */
+  &.card-sm {
     @apply rounded-lg;
-    & > svg {
-      @apply w-7 h-7;
+
+    &>svg {
+      @apply h-7 w-7;
     }
+
     & .card-title {
       @apply text-h6;
     }
-    &:not(.card-bordered) {
-      & .card-image {
-        @apply rounded-lg;
-      }
+
+    &:not(.card-bordered) .card-image {
+      @apply rounded-lg;
     }
-    &.card-bordered{
-      &:not(.card-news) {
-        @apply space-y-5;
-      }
-      &:not(.card-news) {
-        @apply p-4;
-        & .card-image {
-          @apply rounded;
-        }
-      }
+
+    &.card-bordered:not(.card-news) {
+      @apply space-y-5 p-4;
     }
-    &.card-news {
-      &:not(.card-bordered) {
-        @apply space-y-5;
-        & img {
-          @apply rounded-lg;
-        }
-      }
-      & .card-content {
-        @apply space-y-5;
-      }
-      &.card-bordered {
-        & .card-content {
-          @apply p-4;
-        }
-      }
+
+    &.card-bordered:not(.card-news) .card-image {
+      @apply rounded;
     }
-    &.card-service {  
-      & .card-service-title, .card-title {
-        @apply text-h6 ;
-      }
+
+    &.card-news:not(.card-bordered) {
+      @apply space-y-5;
     }
-    &.card-creative {
-      & .card-content {
-        @apply text-[2rem] leading-[normal] p-5;
-      }
+
+    &.card-news:not(.card-bordered) img {
+      @apply rounded-lg;
+    }
+
+    &.card-news .card-content {
+      @apply space-y-5;
+    }
+
+    &.card-bordered.card-news .card-content {
+      @apply p-4;
+    }
+
+    &.card-service .card-title,
+    &.card-service .card-service-title {
+      @apply text-h6;
+    }
+
+    &.card-creative .card-content {
+      @apply text-[2rem] leading-[normal] p-5;
     }
   }
-  /* Card Base */
-  &.card-base{
+
+  &.card-base {
+    /* The base .aegov-card styles already define this size */
     @apply rounded-xl;
-    & > svg {
-      @apply w-10 h-10;
+
+    &>svg {
+      @apply h-10 w-10;
     }
+
     & .card-title {
       @apply text-h5 font-extrabold;
     }
-    &:not(.card-bordered) {
-      & .card-image {
-        @apply rounded-xl;
-      }
+
+    &:not(.card-bordered) .card-image {
+      @apply rounded-xl;
     }
-    &.card-bordered{
-      &:not(.card-news) {
-        @apply space-y-6;
-      }
-      &:not(.card-news) {
-        @apply p-6;
-        & .card-image {
-          @apply rounded-lg;
-        }
-      }
+
+    &.card-bordered:not(.card-news) {
+      @apply space-y-6 p-6;
     }
-    &.card-news {
-      &:not(.card-bordered) {
-        @apply space-y-6;
-        & img {
-          @apply rounded-xl;
-        }
-      }
-      & .card-content {
-        @apply space-y-6;
-      }
-      &.card-bordered {
-        & .card-content {
-          @apply p-6;
-        }
-      }
+
+    &.card-bordered:not(.card-news) .card-image {
+      @apply rounded-lg;
     }
-    &.card-service {
-      & .card-service-title, .card-title {
-        @apply text-h5;
-      }
+
+    &.card-news:not(.card-bordered) {
+      @apply space-y-6;
     }
-    &.card-creative {
-      & .card-content {
-        @apply text-[2.5rem] leading-[1.15] p-7;
-      }
+
+    &.card-news:not(.card-bordered) img {
+      @apply rounded-xl;
+    }
+
+    &.card-news .card-content {
+      @apply space-y-6;
+    }
+
+    &.card-bordered.card-news .card-content {
+      @apply p-6;
+    }
+
+    &.card-service .card-title,
+    &.card-service .card-service-title {
+      @apply text-h5;
+    }
+
+    &.card-creative .card-content {
+      @apply text-[2.5rem] leading-[1.15] p-7;
     }
   }
-  /* Card Large */
-  &.card-lg{
+
+  &.card-lg {
     @apply rounded-2xl;
-    & > svg {
-      @apply w-14 h-14;
+
+    &>svg {
+      @apply h-14 w-14;
     }
+
     & .card-title {
       @apply text-h4;
     }
-    &:not(.card-bordered) {
-      & .card-image {
-        @apply rounded-2xl;
-      }
+
+    &:not(.card-bordered) .card-image {
+      @apply rounded-2xl;
     }
-    &.card-bordered{
-      &:not(.card-news) {
-        @apply space-y-7;
-      }
-      &:not(.card-news) {
-        @apply p-7;
-        & .card-image {
-          @apply rounded-xl;
-        }
-      }
+
+    &.card-bordered:not(.card-news) {
+      @apply space-y-7 p-7;
     }
-    &.card-news {
-      &:not(.card-bordered) {
-        @apply space-y-7;
-        & img {
-          @apply rounded-2xl;
-        }
-      }
-      & .card-content {
-        @apply space-y-7;
-      }
-      &.card-bordered {
-        & .card-content {
-          @apply p-7;
-        }
-      }
+
+    &.card-bordered:not(.card-news) .card-image {
+      @apply rounded-xl;
     }
-    &.card-service {
-      & .card-service-title, .card-title {
-        @apply text-h4;
-      }
+
+    &.card-news:not(.card-bordered) {
+      @apply space-y-7;
     }
-    &.card-creative {
-      & .card-content {
-        @apply text-[3rem] leading-[1.05] p-8;
-      }
+
+    &.card-news:not(.card-bordered) img {
+      @apply rounded-2xl;
+    }
+
+    &.card-news .card-content {
+      @apply space-y-7;
+    }
+
+    &.card-bordered.card-news .card-content {
+      @apply p-7;
+    }
+
+    &.card-service .card-title,
+    &.card-service .card-service-title {
+      @apply text-h4;
+    }
+
+    &.card-creative .card-content {
+      @apply text-[3rem] leading-[1.05] p-8;
     }
   }
-  .aegov-link{
-    @apply underline ;
+
+  .aegov-link {
+    @apply underline;
   }
 }
-
-

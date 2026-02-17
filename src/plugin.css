@@ -1,0 +1,47 @@
+/*
+  This is the single entry point for building the entire plugin.
+  It loads the core library, our theme, and all our style files.
+*/
+@import "tailwindcss";
+
+@layer aegov-base {
+  @import "./base/default.css";
+}
+
+@layer aegov-components {
+  @import "./components/accordion.css";
+  @import "./components/alert.css";
+  @import "./components/avatar.css";
+  @import "./components/banner.css";
+  @import "./components/blockquote.css";
+  @import "./components/breadcrumb.css";
+  @import "./components/button.css";
+  @import "./components/card.css";
+  @import "./components/link.css";
+  @import "./components/pagination.css";
+  @import "./components/step.css";
+
+  @import "./components/form-input.css";
+  @import "./components/form-checks.css";
+  @import "./components/toggle.css";
+
+  @import "./components/dropdown.css";
+  @import "./components/modal.css";
+  @import "./components/popover.css";
+  @import "./components/tab.css";
+  @import "./components/tooltip.css";
+  @import "./components/toast.css";
+  @import "./components/badges.css";
+  /* @import "./theme/dark-tokens.css"; */
+
+  /* blocks */
+  @import "./blocks/header/header.css";
+  @import "./blocks/hero.css";
+  @import "./blocks/header/header.css";
+  @import "./blocks/footer/footer.css";
+
+}
+
+@layer aegov-utilities {
+  @import "./utilities/typography.css";
+}

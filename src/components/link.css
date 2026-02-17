@@ -1,19 +1,56 @@
 .aegov-link {
-  @apply -ml-2.5 inline-flex items-center gap-2 bg-transparent px-2.5 py-2 align-middle font-semibold no-underline hover:underline rtl:-mr-2.5 rtl:ml-0;
-  @apply focus-visible:ring-primary-support-600 focus-visible:ring-offset-4;
-  & > svg.link-icon {
+  /* --- 1. STRUCTURAL STYLES (Fixed) --- */
+  @apply -ml-2.5 inline-flex items-center gap-2 px-2.5 py-2 align-middle font-semibold no-underline rtl:-mr-2.5 rtl:ml-0;
+  @apply focus-visible:ring-offset-4;
+  /* Keep structural focus styles */
+
+  /* --- 2. DYNAMIC COLOR PROPERTIES (Themeable) --- */
+  color: var(--link-fg);
+  background-color: var(--link-bg, transparent);
+  /* Default to transparent */
+  --tw-ring-color: var(--link-focus-ring);
+
+  /* --- 3. DEFAULT (PRIMARY) COLOR SCHEME --- */
+  --link-fg: var(--color-primary-600);
+  --link-fg-hover: var(--color-primary-500);
+  --link-bg-hover: var(--color-primary-50);
+  --link-focus-ring: var(--color-primary-support-600);
+
+  /* --- 4. BEHAVIOR --- */
+  &:hover {
+    color: var(--link-fg-hover);
+    text-decoration-line: underline;
+  }
+
+  &>svg.link-icon {
     @apply h-5 w-5;
   }
+
+  /*
+      ==================================================================
+      MODIFIER CLASSES
+      These now only change the variables.
+      ==================================================================
+    */
+
   &.link-underline {
     @apply underline;
   }
+
   &.link-soft {
-    @apply hover:bg-primary-50 hover:no-underline;
-  }
-  &.link-secondary {
-    @apply text-aeblack-800 hover:text-aeblack-700 focus-visible:ring-secondary-support-300;
-    &.link-soft {
-      @apply hover:bg-aeblack-50;
+
+    /* The hover background is only applied when this class is present */
+    &:hover {
+      background-color: var(--link-bg-hover);
+      @apply no-underline;
     }
+  }
+
+  &.link-secondary {
+    /* Redefine the color variables for the secondary variant */
+    --link-fg: var(--color-aeblack-800);
+    --link-fg-hover: var(--color-aeblack-700);
+    --link-bg-hover: var(--color-aeblack-50);
+    --link-focus-ring: var(--color-secondary-support-300);
   }
 }

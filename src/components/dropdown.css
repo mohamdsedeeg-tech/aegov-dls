@@ -1,18 +1,42 @@
 .aegov-dropdown {
-  @apply bg-whitely-50 rounded-lg shadow-xl z-50 hidden;
+  /* --- 1. STRUCTURAL STYLES (Fixed) --- */
+  @apply rounded-lg z-50 hidden;
+
+  /* --- 2. DYNAMIC COLOR PROPERTIES (Themeable) --- */
+  background-color: var(--dropdown-bg);
+  /* shadow-xl uses a default color, but we can override it if needed */
+  box-shadow: 0 20px 25px -5px --alpha(var(--color-aeblack-900) / 10%), 0 8px 10px -6px --alpha(var(--color-aeblack-900) / 10%);
+
+  /* --- 3. DEFAULT COLOR SCHEME --- */
+  --dropdown-bg: var(--color-whitely-50);
+  --dropdown-header-fg: var(--color-aeblack-900);
+  --dropdown-header-border: var(--color-aeblack-50);
+  --dropdown-body-fg: var(--color-aeblack-700);
+  --dropdown-item-bg-hover: var(--color-secondary-50);
+
   & .dropdown-header {
-    @apply text-aeblack-900 border-aeblack-50 border-b px-3 py-2;
+    color: var(--dropdown-header-fg);
+    border-bottom-color: var(--dropdown-header-border);
+    @apply border-b px-3 py-2;
   }
+
   & .dropwdown-body {
-    @apply text-aeblack-700;
+    color: var(--dropdown-body-fg);
 
     & a {
       @apply text-inherit active:text-inherit visited:text-inherit hover:text-inherit no-underline;
     }
   }
 }
+
 .dropdown-item {
-  @apply flex items-center gap-3 rounded-none px-3 py-2 text-inherit active:text-inherit visited:text-inherit hover:text-inherit hover:bg-secondary-50 no-underline;
+  @apply flex items-center gap-3 rounded-none px-3 py-2 text-inherit no-underline;
+  @apply active:text-inherit visited:text-inherit hover:text-inherit;
+
+  &:hover {
+    background-color: var(--dropdown-item-bg-hover);
+  }
+
   & svg {
     @apply h-5 w-5 text-current;
   }

@@ -1,39 +1,61 @@
 .aegov-accordion {
+  /* --- 1. DEFAULT COLOR & STYLE VARIABLES --- */
+  --accordion-item-border: var(--color-aeblack-100);
+  --accordion-title-fg: var(--color-aeblack-800);
+  --accordion-title-fg-hover: var(--color-primary-600);
+  /* The active color is now defined separately for the mobile variant */
+  --accordion-title-fg-active: var(--color-primary-700);
+  --accordion-content-fg: var(--color-aeblack-800);
+  --accordion-focus-ring: var(--color-primary-support-600);
+
+  /* --- 2. COMPONENT STYLES --- */
   & .accordion-item {
-    @apply border-aeblack-100 border-b;
+    border-bottom-color: var(--accordion-item-border);
+    @apply border-b;
   }
-  & .accordion-title {
-    & button {
-      @apply text-aeblack-800 hover:text-primary-600 flex items-start justify-between text-base font-semibold;
-      &.accordion-active {
-        @apply text-primary-700;
-      }
-      & svg {
-        @apply text-inherit;
-      }
+
+  & .accordion-title button {
+    color: var(--accordion-title-fg);
+    @apply w-full flex items-start gap-x-4 flex-nowrap justify-between text-start text-base font-semibold transition-all;
+
+    &:hover {
+      color: var(--accordion-title-fg-hover);
     }
-  }
-  &:not(.aegov-mobile-accordion) {
-    & .accordion-title {
-      & button {
-        @apply focus-visible:ring-primary-support-600 px-3 py-4 focus-visible:outline-none focus-visible:ring-2 md:py-5 xl:py-6;
-      }
+
+    &.accordion-active {
+      color: var(--accordion-title-fg-active);
     }
-    & .accordion-content {
-      & .accordion-content-body {
-        @apply px-3 py-4 md:py-5 xl:py-6;
-      }
-    }
-  }
-}
-.accordion-title {
-  & button {
-    @apply w-full flex-nowrap justify-start gap-x-4 text-start font-semibold transition-all;
+
+    /* The icon inherits the button's text color */
     & svg {
-      @apply text-aeblack-600 h-6 w-6 flex-shrink-0 fill-current;
+      color: inherit;
+      @apply h-6 w-6 flex-shrink-0 fill-current;
     }
   }
-}
-.accordion-content {
-  @apply text-aeblack-800;
+
+  & .accordion-content {
+    color: var(--accordion-content-fg);
+
+    & .accordion-content-body {
+      @apply text-base;
+    }
+  }
+
+  /* --- 4. DESKTOP PADDING (Structural Variant) --- */
+  &:not(.aegov-mobile-accordion) {
+    & .accordion-title button {
+      @apply px-3 py-4 md:py-5 xl:py-6;
+
+      &:focus-visible {
+          outline-style: solid;
+          outline-width: 2px;
+          outline-offset: 0px;
+          outline-color: var(--color-primary-support-600);
+        }
+    }
+
+    & .accordion-content .accordion-content-body {
+      @apply px-3 py-4 md:py-5 xl:py-6;
+    }
+  }
 }

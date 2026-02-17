@@ -1,90 +1,104 @@
-input[type="checkbox"],
-input[type="radio"] {
-  @apply accent-primary-600 text-primary-600 border-primary-600 relative m-0 h-5 w-5 flex-shrink-0 appearance-none border;
-  @apply before:bg-primary-50 before:absolute before:start-2/4 before:top-2/4 before:mix-blend-multiply before:h-12 before:w-12 before:-translate-x-2/4 before:-translate-y-2/4 before:scale-0 before:rounded-full before:transition-all hover:before:scale-100 rtl:before:translate-x-2/4;
-  @apply focus:ring-primary-support-600 focus:outline-none focus:ring-2 focus:ring-offset-2;
-  @apply disabled:border-primary-200 disabled:before:!hidden disabled:pointer-events-none;
-}
-input[type="checkbox"] {
-  @apply rounded;
-}
-/* Creating the checkbox group component */
+/*
+  ==================================================================
+  1. UNIQUE STYLES FOR EACH WRAPPER
+  ==================================================================
+*/
+
+/* This is for your simple, single-line layout */
 .aegov-check-item {
-  @apply flex items-center justify-start space-x-4 rtl:space-x-reverse;
-  &:has(input:disabled) {
-    & label {
-      @apply text-aeblack-300;
-    }
-  }
+  @apply flex items-center justify-start;
 }
+
+/* This is for your complex layout with a label and description */
 .aegov-check-group {
-  @apply text-aeblack-400 relative flex items-start space-x-4 rtl:space-x-reverse;
+  color: var(--color-aeblack-400);
+  @apply relative flex items-start;
+
   & input {
     @apply mt-1;
   }
+
   & label {
-    @apply text-aeblack-800 inline-block font-semibold;
+    color: var(--color-aeblack-800);
+    @apply inline-block font-semibold;
   }
+
   & p {
     @apply mb-0;
   }
 
   &.group-list {
-    @apply flex items-center justify-between py-5;
+    @apply items-center justify-between py-5;
+
     & label {
       @apply select-none pe-4;
     }
   }
+}
+
+/*
+  ==================================================================
+  2. SHARED STYLES APPLIED TO BOTH WRAPPERS
+  This is where we remove the duplication.
+  ==================================================================
+*/
+.aegov-check-item,
+.aegov-check-group {
+  /* --- Base structural styles common to both --- */
+  @apply space-x-4;
+
+  /* --- Shared disabled state --- */
   &:has(input:disabled) {
-    @apply text-aeblack-200;
     & label {
-      @apply text-aeblack-300;
+      color: var(--color-aeblack-300);
     }
   }
-}
 
-/* Size definations */
-
-.aegov-check-item,
-.aegov-check-group {
-  &.check-lg {
-    @apply text-lg;
-    & input[type="checkbox"]{
-      @apply h-6 w-6;
-    }
-    & input[type="radio"]{
-      @apply h-6 w-6;
-    }
+  &:has(input:disabled) {
+    color: var(--color-aeblack-200);
   }
-  &.check-base {
-    @apply text-base;
-    & input[type="checkbox"]{
-      @apply h-5 w-5;
-    }
-    & input[type="radio"]{
-      @apply h-5 w-5;
-    }
-  }
-  &.check-sm {
-    @apply text-sm;
-    & input[type="checkbox"]{
-      @apply h-4 w-4 before:h-10 before:w-10;
-    }
-    & input[type="radio"] {
-      @apply h-4 w-4 before:h-10 before:w-10;
-    }
-  }
-}
 
-/* Colour definations */
+  /* --- Shared Color Variables --- */
+  --form-check-accent: var(--color-primary-600);
+  --form-check-border: var(--color-primary-600);
+  --form-check-hover-before-bg: var(--color-primary-50);
+  --form-check-focus-ring: var(--color-primary-support-600);
+  --form-check-disabled-border: var(--color-primary-200);
 
-.aegov-check-item,
-.aegov-check-group {
+  /* --- Shared Color Variant --- */
   &.check-secondary {
-    input[type="checkbox"],
-    input[type="radio"] {
-      @apply accent-secondary-800 text-secondary-800 border-secondary-700 before:bg-secondary-50 border-2;
-      @apply focus:ring-secondary-support-300 disabled:border-secondary-200;
-    }
+    --form-check-accent: var(--color-secondary-800);
+    --form-check-border: var(--color-secondary-700);
+    --form-check-hover-before-bg: var(--color-secondary-50);
+    --form-check-focus-ring: var(--color-secondary-support-300);
+    --form-check-disabled-border: var(--color-secondary-200);
+  }
+}
+
+/* --- Shared Size Variants --- */
+.check-lg {
+  @apply text-lg;
+
+  & input[type="checkbox"],
+  & input[type="radio"] {
+    @apply h-6 w-6;
+  }
+}
+
+.check-base {
+  @apply text-base;
+
+  & input[type="checkbox"],
+  & input[type="radio"] {
+    @apply h-5 w-5;
+  }
+}
+
+.check-sm {
+  @apply text-sm;
+
+  & input[type="checkbox"],
+  & input[type="radio"] {
+    @apply h-4 w-4 before:h-10 before:w-10;
   }
 }

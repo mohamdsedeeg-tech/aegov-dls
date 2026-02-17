@@ -1,56 +1,64 @@
-/* tooltip */
-.aegov-tooltip{
-  @apply absolute invisible inline-block px-6 py-2.5 text-xs font-normal text-whitely-50 transition-all bg-aeblack-900 rounded shadow-sm opacity-0;
-}
-.tooltip-arrow,
-.tooltip-arrow:before {
-  @apply absolute h-4 w-4 rounded bg-inherit;
-}
+/*
+  ==================================================================
+  MAIN TOOLTIP COMPONENT
+  All styles for the tooltip and its children are now nested here.
+  ==================================================================
+*/
+.aegov-tooltip {
+  /* --- Default (Dark) Color Scheme --- */
+  --tooltip-bg: var(--color-aeblack-900);
+  --tooltip-fg: var(--color-whitely-50);
 
-.tooltip-arrow {
-  visibility: hidden;
-}
+  /* --- Dynamic Color Properties --- */
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-fg);
 
-.tooltip-arrow:before {
-  @apply visible start-0 rotate-45 transition-none content-[""];
-}
+  /* --- Structural Styles --- */
+  @apply absolute invisible inline-block px-6 py-2.5 text-xs font-normal transition-all rounded shadow-sm opacity-0;
 
-[data-tooltip-style^="light"] + .aegov-tooltip > .tooltip-arrow:before {
-  @apply border-aeblack-950 border-solid;
-}
+  /*
+    ------------------------------------------------------------------
+    CHILD ELEMENT: Tooltip Arrow
+    ------------------------------------------------------------------
+  */
+  & .tooltip-arrow,
+  & .tooltip-arrow::before {
+    background-color: var(--tooltip-bg);
+    @apply absolute h-4 w-4 rounded;
+  }
 
-[data-tooltip-style^="light"] + .aegov-tooltip[data-popper-placement^="top"] > .tooltip-arrow:before {
-  @apply border-b border-e;
-}
+  & .tooltip-arrow {
+    visibility: hidden;
+  }
 
-[data-tooltip-style^="light"] + .aegov-tooltip[data-popper-placement^="right"] > .tooltip-arrow:before {
-  @apply border-b border-s;
-}
+  & .tooltip-arrow::before {
+    /* The border is transparent by default for the dark theme */
+    border-color: transparent;
+    @apply visible start-0 rotate-45 transition-none content-[""];
+  }
 
-[data-tooltip-style^="light"] + .aegov-tooltip[data-popper-placement^="bottom"] > .tooltip-arrow:before {
-  @apply border-s border-t;
-}
+  /*
+    ------------------------------------------------------------------
+    POSITIONING STYLES
+    ------------------------------------------------------------------
+  */
+  &[data-popper-placement^="top"]>.tooltip-arrow {
+    @apply -bottom-1;
+  }
 
-[data-tooltip-style^="light"] + .aegov-tooltip[data-popper-placement^="left"] > .tooltip-arrow:before {
-  @apply border-e border-t;
-}
+  &[data-popper-placement^="bottom"]>.tooltip-arrow {
+    @apply -top-1;
+  }
 
-.aegov-tooltip[data-popper-placement^="top"] > .tooltip-arrow {
-  @apply -bottom-1;
-}
+  &[data-popper-placement^="left"]>.tooltip-arrow {
+    @apply -end-1;
+  }
 
-.aegov-tooltip[data-popper-placement^="bottom"] > .tooltip-arrow {
-  @apply -top-1;
-}
+  &[data-popper-placement^="right"]>.tooltip-arrow {
+    @apply -start-1;
+  }
 
-.aegov-tooltip[data-popper-placement^="left"] > .tooltip-arrow {
-  @apply -end-1;
-}
-
-.aegov-tooltip[data-popper-placement^="right"] > .tooltip-arrow {
-  @apply -start-1;
-}
-
-.aegov-tooltip.in-visible > .tooltip-arrow:before {
-  visibility: hidden;
+  &.in-visible>.tooltip-arrow::before {
+    visibility: hidden;
+  }
 }

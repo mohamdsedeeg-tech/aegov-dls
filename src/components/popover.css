@@ -1,19 +1,37 @@
 .aegov-popover {
-  @apply bg-whitely-50 rounded-lg shadow-xl z-50 opacity-0 invisible;
+  /* This background color is single-use, so we apply the global variable directly */
+  background-color: var(--color-whitely-50);
+
+  /* Structural styles remain in @apply */
+  @apply rounded-lg shadow-xl z-50 opacity-0 invisible;
+
   & .popover-header {
-    @apply text-aeblack-900 border-aeblack-50 border-b ;
+    /* These colors are also single-use */
+    color: var(--color-aeblack-900);
+    border-color: var(--color-aeblack-50);
+    @apply border-b px-3 py-2;
   }
-  & .dropwdown-body {
-    @apply text-aeblack-700;
+
+  & .popover-body {
+    color: var(--color-aeblack-700);
 
     & a {
       @apply text-inherit active:text-inherit visited:text-inherit hover:text-inherit no-underline;
     }
   }
-}
-.popover-item {
-  @apply flex items-center gap-3 rounded-none px-3 py-2 text-inherit active:text-inherit visited:text-inherit hover:text-inherit hover:bg-secondary-50 no-underline;
-  & svg {
-    @apply h-5 w-5 text-current;
+
+  .popover-item {
+    /* This color changes on hover, so we create a local variable for it */
+    --popover-item-bg-hover: var(--color-secondary-50);
+
+    @apply flex items-center gap-3 rounded-none px-3 py-2 text-inherit active:text-inherit visited:text-inherit hover:text-inherit no-underline;
+
+    &:hover {
+      background-color: var(--popover-item-bg-hover);
+    }
+
+    & svg {
+      @apply h-5 w-5 text-current;
+    }
   }
 }

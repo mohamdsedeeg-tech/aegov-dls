@@ -1,21 +1,50 @@
 .aegov-quote {
-  @apply text-aeblack-800 relative px-10 py-6 text-base font-medium;
+  /* --- 1. STRUCTURAL STYLES (Fixed) --- */
+  @apply relative px-10 py-6 text-base font-medium;
+
+  /* --- 2. DYNAMIC COLOR PROPERTIES (Themeable) --- */
+  color: var(--quote-fg);
+  background-color: var(--quote-bg, transparent);
+  border-color: var(--quote-border, transparent);
+
+  /* --- 3. DEFAULT COLOR SCHEME --- */
+  --quote-fg: var(--color-aeblack-800);
+  --quote-author-fg: var(--color-primary-700);
+  --quote-cite-fg: var(--color-primary-700);
+
+  /* Defaults for the colored variant */
+  --quote-bg: transparent;
+  --quote-border: transparent;
+
+  /* --- Child Element Styles --- */
   & .quote-icon {
-    @apply absolute start-0 top-0  h-12 w-12 rtl:-scale-x-100;
+    @apply absolute start-0 top-0 h-12 w-12 rtl:-scale-x-100;
   }
+
   & .quote-author {
-    @apply text-primary-700 mb-1 text-sm font-medium;
+    color: var(--quote-author-fg);
+    @apply mb-1 text-sm font-medium;
   }
+
   & .quote-cite {
-    @apply text-primary-700 text-sm font-normal;
+    color: var(--quote-cite-fg);
+    @apply text-sm font-normal;
   }
+
   & .quote-footer {
     @apply mt-10;
   }
+
+  /* --- Structural Variant for un-colored version --- */
   &:not(.quote-colored) {
-    @apply py-6 pl-14 pr-10 rtl:pl-10 rtl:pr-14;
+    @apply py-6 ps-14 pe-10;
   }
-}
-.aegov-quote.quote-colored {
-  @apply bg-primary-50 border-primary-500 border-s-[10px];
+
+  &.quote-colored {
+    @apply border-s-[10px];
+
+    /* Redefine the color variables for the colored variant */
+    --quote-bg: var(--color-primary-50);
+    --quote-border: var(--color-primary-500);
+  }
 }
