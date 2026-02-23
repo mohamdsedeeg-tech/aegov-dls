@@ -1,52 +1,111 @@
-/* footer  */
-
 .aegov-footer {
-  @apply bg-aeblack-50 before:from-primary-400 before:to-primary-600 relative pt-2 before:absolute before:top-0 before:h-2 before:w-full before:bg-gradient-to-b;
-  & a {
-    @apply text-aeblack-700 hover:text-primary-600 text-sm font-normal no-underline xl:text-base;
+  /* --- 1. DEFAULT COLOR SCHEME --- */
+  --footer-bg: var(--color-aeblack-50);
+  --footer-gradient-from: var(--color-primary-400);
+  --footer-gradient-to: var(--color-primary-600);
+  --footer-link-fg: var(--color-aeblack-700);
+  --footer-link-fg-hover: var(--color-primary-600);
+  --footer-accordion-btn-fg: var(--color-primary-600);
+  --footer-accordion-btn-fg-active: var(--color-primary-700);
+  --footer-accordion-icon-fg: var(--color-aeblack-600);
+  --footer-contact-link-fg: var(--color-aeblack-800);
+  --footer-contact-link-fg-hover: var(--color-aeblack-600);
+  --footer-social-link-fg: var(--color-aeblack-600);
+  --footer-social-link-fg-hover: var(--color-aeblack-500);
+  --footer-bottom-border: var(--color-aeblack-100);
+
+  --footer-gradient-from: var(--color-primary-400);
+  --footer-gradient-to: var(--color-primary-600);
+
+  /* --- 2. STRUCTURAL & DYNAMIC STYLES --- */
+  background-color: var(--footer-bg);
+
+  @apply relative pt-2;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: theme('spacing.2');
+    width: 100%;
+    background-image: linear-gradient(to bottom,
+        var(--footer-gradient-from),
+        var(--footer-gradient-to));
   }
-  .accordion-title {
-    & button {
-      @apply !text-primary-600 text-base font-bold md:text-lg lg:text-xl;
+
+  & a {
+    color: var(--footer-link-fg);
+    @apply text-sm font-normal no-underline xl:text-base;
+
+    &:hover {
+      color: var(--footer-link-fg-hover);
+    }
+  }
+
+  .aegov-accordion .accordion-title button {
+    color: var(--footer-accordion-btn-fg) !important;
+    @apply text-base font-bold md:text-lg lg:text-xl;
+
+    & svg {
+      color: var(--footer-accordion-icon-fg);
+    }
+
+    &.accordion-active {
+      color: var(--footer-accordion-btn-fg-active);
+
       & svg {
-        @apply text-aeblack-600;
-      }
-      &.accordion-active {
-        @apply text-primary-700;
-        & svg {
-          @apply text-primary-700;
-        }
+        color: var(--footer-accordion-btn-fg-active);
       }
     }
   }
-  .accordion-content-body {
+
+  .aegov-accordion .accordion-content-body {
     @apply space-y-3;
   }
 }
+
 .footer-contact {
   @apply max-lg:text-center max-sm:py-8;
+
   & li {
     @apply w-full justify-center py-3 xl:px-8;
-    & > a {
-      @apply text-aeblack-800 hover:text-aeblack-600 font-bold;
+
+    &>a {
+      color: var(--footer-contact-link-fg);
+      @apply font-bold;
+
+      &:hover {
+        color: var(--footer-contact-link-fg-hover);
+      }
     }
+
     & svg {
       @apply inline-block h-4 w-4 flex-shrink-0;
     }
   }
 }
+
 .inline-with-gap {
   @apply inline-flex items-center gap-3;
 }
+
 .social-sharing {
   @apply flex items-center gap-6;
+
   & a {
-    @apply text-aeblack-600 hover:text-aeblack-500;
+    color: var(--footer-social-link-fg);
+
+    &:hover {
+      color: var(--footer-social-link-fg-hover);
+    }
   }
+
   & svg {
     @apply inline-block h-8 w-8;
   }
 }
+
 .footer-bottom {
-  @apply border-aeblack-100 border-t max-lg:text-center;
+  border-color: var(--footer-bottom-border);
+  @apply border-t max-lg:text-center;
 }

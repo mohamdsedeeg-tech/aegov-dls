@@ -1,362 +1,291 @@
-input[type="text"],
-input[type="email"],
-input[type="url"],
-input[type="password"],
-input[type="number"],
-input[type="date"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="week"],
-[multiple],
-textarea,
-select {
-  @apply text-primary-900 placeholder:text-aeblack-500 block w-full flex-1 border-0 bg-transparent py-3 px-4 text-base leading-6 focus:ring-0;
-  @apply motion-reduce:transition-none;
-  @apply disabled:pointer-events-none disabled:cursor-not-allowed disabled:select-none;
-}
-
-/* range slider */
-input[type="range"] {
-  @apply bg-aeblack-200/50 from-primary-300 to-primary-500 my-3 inline-block h-2 w-full appearance-none rounded bg-gradient-to-r bg-no-repeat align-middle text-base;
-}
-input[type="range"]::-webkit-slider-thumb {
-  @apply bg-primary-800 cursor-[ew-resize] h-5 w-5 appearance-none rounded-full shadow-sm transition-colors;
-}
-input[type="range"]::-webkit-slider-thumb:hover {
-  @apply bg-primary-700;
-}
-input[type="range"]::-webkit-slider-runnable-track {
-  @apply appearance-none border-0 bg-transparent shadow-none;
-}
-
-/* input file upload */
-input[type="file"] {
-  &:not(:disabled):not([readonly]) {
-    @apply cursor-pointer;
-  }
-  @apply w-full !py-0 overflow-hidden border-0 outline-none motion-reduce:transition-none;
-  @apply file:text-primary-700 file:bg-primary-50 file:me-4 file:h-full file:bg-transparent file:px-4;
-  @apply file:focus:shadow-primary-support-600/20 file:ring-primary-300 file:focus-within:ring-primary-support-600 focus:outline-primary-500 file:rounded-s file:border-0 file:py-3 file:ring-2 file:ring-inset file:focus-within:ring-2 file:focus-within:ring-inset file:focus:z-10;
-  &:hover:not(:disabled):not([readonly])::file-selector-button {
-    @apply bg-primary-100;
-  }
-}
 .aegov-form-control {
+  /* --- 1. DEFAULT (PRIMARY) COLOR SCHEME --- */
+  --form-label-fg: var(--color-aeblack-800);
+  --form-input-bg: var(--color-whitely-50);
+  --form-input-ring: var(--color-primary-400);
+  --form-input-focus-ring: var(--color-primary-support-600);
+  --form-input-text: var(--color-primary-900);
+  --form-input-placeholder: var(--color-aeblack-500);
+  --form-input-prefix-fg: var(--color-aeblack-500);
+  --form-input-focus-prefix-fg: var(--color-primary-900);
+  --form-select-arrow: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%237C5E24' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  --form-dropbox-border: var(--color-primary-400);
+  --form-dropbox-label-fg: var(--color-primary-600);
+  --form-dropbox-label-fg-hover: var(--color-primary-500);
+
+  /* --- 2. STRUCTURAL STYLES --- */
   & label {
-    @apply text-aeblack-800 mb-1 block text-sm font-medium leading-6;
+    color: var(--form-label-fg);
+    font-size: var(--text-sm);
+    @apply mb-1 block font-medium leading-6;
   }
+
   & .form-control-input {
-    @apply bg-whitely-50 ring-primary-400 focus-within:ring-primary-support-600 relative flex rounded-lg shadow-sm ring-2 ring-inset focus-within:ring-2 focus-within:ring-inset focus:shadow-md;
+    background-color: var(--form-input-bg);
+    --tw-inset-ring-shadow: inset 0 0 0 2px var(--tw-inset-ring-color, currentcolor);
+    box-shadow: 0 0 #0000, var(--tw-inset-ring-shadow), 0 0 #0000, 0 0 #0000, 0 0 #0000;
+    --tw-inset-ring-color: var(--form-input-ring);
+    @apply relative flex rounded-lg;
+    --tw-shadow: var(--shadow-sm);
+
+    &:focus-within {
+      --tw-inset-ring-color: var(--form-input-focus-ring);
+    }
+
     & .control-prefix,
     & .control-suffix {
-      @apply text-aeblack-500 flex select-none items-center;
+      color: var(--form-input-prefix-fg);
+      @apply flex select-none items-center;
 
-      & + input {
+      &+input {
         @apply pl-1.5;
       }
 
-      & > svg {
+      &>svg {
         @apply h-6 w-6 fill-current;
       }
     }
+
     &:has(:disabled) {
       @apply opacity-40;
     }
+
     &:has([type="range"]) {
-      @apply border-0 shadow-none ring-0;
-    }
-    & input[type="search"]  {
-      + .control-suffix {
-        @apply focus-within:outline-none focus-within:!text-primary-support-600;
+      @apply border-0 focus-visible:ring-2 outline-none;
+      box-shadow: none;
+      --tw-ring-color: transparent;
+
+      &:focus-visible,
+      &:focus-within,
+      &:focus {
+        --tw-ring-color: var(--form-input-focus-ring);
+        outline: none !important;
       }
-      &::-webkit-search-cancel-button {
-        cursor: pointer;
-      }      
+
     }
+
+    & input[type="search"]+.control-suffix {
+      &:focus-within {
+        color: var(--form-input-focus-ring);
+        outline: none;
+      }
+    }
+
+    & input[type="search"]::-webkit-search-cancel-button {
+      cursor: pointer;
+    }
+
     & input[type=file] {
       @apply rounded-lg;
     }
+
     & .control-prefix {
       @apply ps-4;
     }
-    & .control-prefix select{
+
+    & .control-prefix select {
       @apply ps-0;
     }
+
     & .control-suffix {
       @apply pe-4;
     }
-    & input[type="date"],
-    input[type="datetime-local"],
-    input[type="month"] {
-      & + .control-suffix {
-        @apply pointer-events-none absolute right-3.5 top-2/4 -translate-y-2/4 appearance-none bg-inherit pe-0;
-        & svg {
-          @apply focus-within:ring-primary-support-600 focus-within:ring-2 focus-within:ring-inset;
-        }
+
+    & input[type="date"]+.control-suffix,
+    & input[type="datetime-local"]+.control-suffix,
+    & input[type="month"]+.control-suffix {
+      @apply pointer-events-none absolute right-3.5 top-2/4 -translate-y-2/4 appearance-none bg-inherit pe-0;
+
+      & svg {
+        --tw-ring-color: var(--form-input-focus-ring);
+        @apply focus-within:ring-2 focus-within:ring-inset;
       }
     }
-    &:focus-within {
-      & .control-prefix {
-        @apply text-primary-900;
-      }
-      & .control-suffix {
-        @apply text-primary-900;
-      }
+
+    &:focus-within .control-prefix,
+    &:focus-within .control-suffix {
+      color: var(--form-input-focus-prefix-fg);
     }
   }
+
   & select {
-    @apply text-primary-900 pe-9 ps-4 rtl:bg-[0.5rem] bg-no-repeat;
-    background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%237C5E24' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    color: var(--form-input-text);
+    background-image: var(--form-select-arrow);
+    @apply pe-9 ps-4 rtl:bg-[0.5rem] bg-no-repeat;
   }
-  & [multiple]{
+
+  & [multiple] {
     @apply bg-none pr-4;
   }
+
   & textarea {
     @apply h-auto;
   }
 
-  /** Size definations **/
-  &.control-lg {
-    & label {
-      @apply text-base;
-    }
-    & .form-control-input {
-      @apply text-lg;
-      & input {
-        @apply py-4 text-lg;
-      }
-      & select {
-        @apply py-4 text-lg;
-      }
-      & textarea {
-        @apply py-4 text-lg;
-      }
-      & input[type="file"]{
-        @apply file:py-4 text-lg h-14;
-      }
-      & .control-prefix,
-      & .control-suffix {
-        & > svg {
-          @apply h-7 w-7;
-        }
-      }
+  /* --- 3. COLOR VARIANTS --- */
+  &.control-secondary {
+    --form-input-ring: var(--color-secondary-400);
+    --form-input-focus-ring: var(--color-secondary-support-300);
+    --form-input-text: var(--color-secondary-900);
+    --form-input-focus-prefix-fg: var(--color-secondary-900);
+    --form-select-arrow: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%233E4046' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    --form-dropbox-border: var(--color-secondary-400);
+    --form-dropbox-label-fg: var(--color-secondary-600);
+    --form-dropbox-label-fg-hover: var(--color-secondary-500);
+  }
+
+  &.control-error {
+    --form-label-fg: var(--color-aered-600);
+    --form-input-bg: var(--color-aered-50);
+    --form-input-ring: var(--color-aered-400);
+    --form-input-focus-ring: var(--color-aered-600);
+    --form-input-text: var(--color-aered-900);
+    --form-input-focus-prefix-fg: var(--color-aered-900);
+    --form-dropbox-border: var(--color-aered-400);
+    --form-dropbox-label-fg: var(--color-aered-600);
+    --form-dropbox-label-fg-hover: var(--color-aered-500);
+
+    & .error-message {
+      color: var(--color-aered-600);
+      @apply text-sm mt-1;
     }
   }
-  &.control-base {
-    & label {
-      @apply text-sm;
-    }
-    & .form-control-input {
-      @apply text-base;
-      & input {
-        @apply py-3 text-base leading-6;
-      }
-      & select {
-        @apply py-3 text-base leading-6;
-      }
-      & textarea {
-        @apply py-3 text-base leading-6;
-      }
-      & input[type="file"]{
-        @apply file:py-3 text-base h-12;
-      }
-      & .control-prefix,
-      & .control-suffix {
-        & > svg {
-          @apply h-6 w-6;
-        }
-      }
-    }
-  }
-  &.control-sm {
-    & .form-control-input {
-      @apply text-sm;
-      & input {
-        @apply py-2.5 text-sm;
-      }
-      & select {
-        @apply py-2.5 text-sm;
-      }
-      & textarea {
-        @apply py-2.5 text-sm;
-      }
-      & input[type="file"]{
-        @apply file:py-2.5 text-sm h-10;
-      }
-      & .control-prefix,
-      & .control-suffix {
-        & > svg {
-          @apply h-5 w-5;
-        }
-      }
-    }
-  }
-  /* file with drag and drop style */
+
+  /* --- 4. STRUCTURAL SUB-COMPONENTS & VARIANTS --- */
   & .form-control-dropbox {
-    @apply border-primary-400 bg-whitely-50 relative block rounded-lg border border-dashed text-center shadow-sm focus:shadow-md;
+
+    border-color: var(--form-dropbox-border);
+    border-width: 1px;
+    border-style: dashed;
+    background-color: var(--form-input-bg);
+    @apply relative block rounded-lg text-center;
+    --tw-shadow: var(--shadow-sm);
+
+    &:focus-within {
+      --tw-shadow: var(--shadow-md);
+    }
+
     & svg {
-      @apply mx-auto h-10 w-10 text-slate-300 xl:h-12 xl:w-12;
+      color: var(--color-slate-300);
+      @apply mx-auto h-10 w-10 xl:h-12 xl:w-12;
     }
+
     & label {
-      @apply bg-whitely-50 text-primary-600 focus-within:ring-primary-support-600 hover:text-primary-500 relative inline-block cursor-pointer rounded-lg font-semibold focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2;
+      background-color: var(--form-input-bg);
+      color: var(--form-dropbox-label-fg);
+      --tw-ring-color: var(--form-input-focus-ring);
+      @apply relative inline-block cursor-pointer rounded-lg font-semibold focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2;
+
+      &:hover {
+        color: var(--form-dropbox-label-fg-hover);
+      }
     }
   }
-}
-/* secondary */
-.aegov-form-control {
-  &.control-secondary{
-    & .form-control-input {
-      @apply bg-whitely-50 ring-secondary-400 focus-within:ring-secondary-support-300;
-      & input[type="date"],
-      input[type="datetime-local"],
-      input[type="month"] {
-        & + .control-suffix {
-          & svg {
-            @apply focus-within:ring-secondary-support-300;
-          }
-        }
-      }
-      &:focus-within {
-        & .control-prefix {
-          @apply text-secondary-900;
-        }
-        & .control-suffix {
-          @apply text-secondary-900;
-        }
-      }
-      & input[type="search"]  {
-        + .control-suffix {
-          @apply focus-within:outline-none focus-within:!text-secondary-support-400;
-        }
-      }
-    }
-    & select {
-      @apply text-secondary-900 pe-9 ps-4 rtl:bg-[0.5rem];
-      background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%233E4046' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    }
-    /* file with drag and drop style */
-    & .form-control-dropbox {
-      @apply border-secondary-400 bg-whitely-50;
-      & svg {
-        @apply text-slate-300;
-      }
-      & label {
-        @apply bg-whitely-50 text-secondary-600 focus-within:ring-secondary-support-300 hover:text-secondary-500;
-      }
-    }
-    
-    /* range slider */
-    input[type="range"] {
-      @apply bg-secondary-200/50 from-secondary-300 to-secondary-500;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      @apply bg-secondary-800;
-    }
-    input[type="range"]::-webkit-slider-thumb:hover {
-      @apply bg-secondary-700;
-    }
 
-    /* input file upload */
-    input[type="file"] {
-      @apply file:text-secondary-700 file:bg-secondary-50;
-      @apply file:focus:shadow-secondary-support-300/20 file:ring-secondary-300 file:focus-within:ring-secondary-support-300 focus:outline-secondary-support-300;
-      &:hover:not(:disabled):not([readonly])::file-selector-button {
-        @apply bg-secondary-100;
-      }
-    }
-
-  }
-}
-
-/* error */
-.aegov-form-control {
-  &.control-error{
-    & label{
-      @apply text-aered-600;
-    }
-    & .error-message{
-      @apply text-aered-600 text-sm mt-1;
-    }
-    & .form-control-input {
-      @apply bg-aered-50 ring-aered-400 focus-within:ring-aered-600;
-      & input[type="date"],
-      input[type="datetime-local"],
-      input[type="month"] {
-        & + .control-suffix {
-          & svg {
-            @apply focus-within:ring-aered-600;
-          }
-        }
-      }
-      &:focus-within {
-        & .control-prefix {
-          @apply text-aered-900;
-        }
-        & .control-suffix {
-          @apply text-aered-900;
-        }
-      }
-    }
-    & select {
-      @apply text-aered-900 pe-9 ps-4 rtl:bg-[0.5rem];
-      background-image: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%233E4046' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-chevron-down'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-    }
-    /* file with drag and drop style */
-    & .form-control-dropbox {
-      @apply border-aered-400 bg-aered-50;
-      & svg {
-        @apply text-slate-300;
-      }
-      & label {
-        @apply bg-aered-50 text-aered-600 focus-within:ring-aered-600 hover:text-aered-500;
-      }
-    }
-    
-    /* range slider */
-    input[type="range"] {
-      @apply bg-aered-200/50 from-aered-300 to-aered-500;
-    }
-    input[type="range"]::-webkit-slider-thumb {
-      @apply bg-aered-800;
-    }
-    input[type="range"]::-webkit-slider-thumb:hover {
-      @apply bg-aered-700;
-    }
-
-    /* input file upload */
-    input[type="file"] {
-      
-      @apply file:text-aered-700 file:bg-aered-50;
-      @apply file:focus:shadow-aered-400/20 file:ring-aered-300 file:focus-within:ring-aered-600 focus:outline-aered-500;
-      &:hover:not(:disabled):not([readonly])::file-selector-button {
-        @apply bg-aered-100;
-      }
-    }
-
-  }
-}
-
-.aegov-form-control{
   &.aegov-file-input-control {
     .file-input-label {
-        @apply m-0 !text-base !text-whitely-50 !inline-flex flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center text-center no-underline;
+      color: var(--color-whitely-50);
+      @apply m-0 !text-base !inline-flex flex-shrink-0 cursor-pointer select-none flex-wrap items-center justify-center text-center no-underline;
 
-        &.file-input-disabled {
-          @apply opacity-40;
-        }
+      &.file-input-disabled {
+        @apply opacity-40;
+      }
     }
+
     input[type="file"] {
-        @apply hidden;
+      @apply hidden;
     }
-    .file-input-summary {
-        @apply space-y-4 mt-4;
 
-        .file-input-summary-item {
-            @apply flex flex-wrap gap-3 items-center justify-start text-center text-aeblack-500 font-medium;
-        }
+    .file-input-summary {
+      @apply space-y-4 mt-4;
+
+      .file-input-summary-item {
+        color: var(--color-aeblack-500);
+        @apply flex flex-wrap gap-3 items-center justify-start text-center font-medium;
+      }
+    }
+  }
+
+
+}
+
+/* --- 5. SIZE VARIANTS (Structural) --- */
+&.control-lg {
+  & label {
+    @apply text-base;
+  }
+
+  & .form-control-input {
+    @apply text-lg;
+
+    & input,
+    & select,
+    & textarea {
+      @apply py-4 text-lg;
+    }
+
+    & input[type="file"] {
+      @apply h-14 file:py-4 text-lg;
+    }
+
+    & .control-prefix,
+    & .control-suffix {
+      &>svg {
+        @apply h-7 w-7;
+      }
+    }
+  }
+}
+
+&.control-base {
+  & label {
+    @apply text-sm;
+  }
+
+  & .form-control-input {
+    @apply text-base;
+
+    & input,
+    & select,
+    & textarea {
+      @apply py-3 leading-6;
+      font-size: var(--text-base);
+    }
+
+    & input[type="file"] {
+      @apply h-12 file:py-3 text-base;
+    }
+
+    & .control-prefix,
+    & .control-suffix {
+      &>svg {
+        @apply h-6 w-6;
+      }
+    }
+  }
+}
+
+&.control-sm {
+  & .form-control-input {
+    @apply text-sm;
+
+    & input,
+    & select,
+    & textarea {
+      @apply py-2.5 leading-4;
+      font-size: var(--text-sm);
+    }
+
+    & input[type="file"] {
+      @apply h-10 file:py-2.5 leading-4;
+      font-size: var(--text-sm);
+    }
+
+    & .control-prefix,
+    & .control-suffix {
+      &>svg {
+        @apply h-5 w-5;
+      }
     }
   }
 }

@@ -1,0 +1,126 @@
+.aegov-badge {
+  /* --- 1. STRUCTURAL STYLES (Fixed) --- */
+  @apply rounded px-2 py-0.5 text-sm/6 font-semibold whitespace-nowrap inline-flex items-center gap-2;
+
+  /* --- 2. DYNAMIC COLOR PROPERTIES (Themeable) --- */
+  background-color: var(--badge-bg);
+  color: var(--badge-fg);
+  --tw-ring-color: var(--badge-focus-ring);
+
+  /* --- 3. DEFAULT COLOR SCHEME (Primary Soft) --- */
+  --badge-bg: var(--color-primary-50);
+  --badge-fg: var(--color-primary-700);
+  --badge-focus-ring: var(--color-primary-700);
+  --badge-bg-hover: var(--color-primary-200);
+  /* For hoverable links */
+
+  & .badge-icon {
+    @apply w-5 h-5;
+    color: var(--badge-fg);
+  }
+
+  &>.badge-dismiss>button {
+    &:focus-visible {
+          outline-style: solid;
+          outline-width: 2px;
+          outline-offset: 2px;
+          outline-color: var(--badge-focus-ring);
+      }
+  }
+
+  /* ==================================================================
+      STYLE & COLOR VARIANTS
+      These classes just override the color variables.
+      ==================================================================
+    */
+
+  &.badge-solid {
+    --badge-bg: var(--color-primary-600);
+    --badge-fg: var(--color-whitely-50);
+    --badge-focus-ring: var(--color-whitely-50);
+    --badge-bg-hover: var(--color-primary-700);
+  }
+
+  &.badge-success {
+    --badge-bg: var(--color-aegreen-50);
+    --badge-fg: var(--color-aegreen-700);
+    --badge-focus-ring: var(--color-aegreen-700);
+    --badge-bg-hover: var(--color-aegreen-200);
+
+    &.badge-solid {
+      --badge-bg: var(--color-aegreen-600);
+      --badge-fg: var(--color-whitely-50);
+      --badge-focus-ring: var(--color-whitely-50);
+      --badge-bg-hover: var(--color-aegreen-700);
+    }
+  }
+
+  &.badge-info {
+    --badge-bg: var(--color-techblue-50);
+    --badge-fg: var(--color-techblue-700);
+    --badge-focus-ring: var(--color-techblue-700);
+    --badge-bg-hover: var(--color-techblue-200);
+
+    &.badge-solid {
+      --badge-bg: var(--color-techblue-600);
+      --badge-fg: var(--color-whitely-50);
+      --badge-focus-ring: var(--color-whitely-50);
+      --badge-bg-hover: var(--color-techblue-700);
+    }
+  }
+
+  &.badge-warning {
+    --badge-bg: var(--color-camel-50);
+    --badge-fg: var(--color-camel-700);
+    --badge-focus-ring: var(--color-camel-700);
+    --badge-bg-hover: var(--color-camel-200);
+
+    &.badge-solid {
+      --badge-bg: var(--color-camel-600);
+      --badge-fg: var(--color-whitely-50);
+      --badge-focus-ring: var(--color-whitely-50);
+      --badge-bg-hover: var(--color-camel-700);
+    }
+  }
+
+  &.badge-error {
+    --badge-bg: var(--color-aered-50);
+    --badge-fg: var(--color-aered-700);
+    --badge-focus-ring: var(--color-aered-700);
+    --badge-bg-hover: var(--color-aered-200);
+
+    &.badge-solid {
+      --badge-bg: var(--color-aered-600);
+      --badge-fg: var(--color-whitely-50);
+      --badge-focus-ring: var(--color-whitely-50);
+      --badge-bg-hover: var(--color-aered-700);
+    }
+  }
+
+  /* ==================================================================
+      SIZE VARIANTS (Structural)
+      ==================================================================
+    */
+  &.badge-base {
+    @apply rounded px-2 py-0.5 text-sm/6;
+
+    &>span.badge-indicator {
+      @apply h-2.5 w-2.5;
+    }
+  }
+
+  &.badge-lg {
+    @apply rounded px-4 py-1.5 text-base/6;
+
+    &>span.badge-indicator {
+      @apply h-3 w-3;
+    }
+  }
+}
+
+/* Make badges interactive when used on an anchor tag */
+a.aegov-badge {
+  &:hover {
+    background-color: var(--badge-bg-hover);
+  }
+}
